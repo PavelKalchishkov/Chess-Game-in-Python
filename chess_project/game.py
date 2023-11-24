@@ -2,6 +2,7 @@ from chess_project.chess_piece import ChessPiece
 from chess_project.white_pawn import WhitePawn
 from chess_project.black_pawn import BlackPawn
 from chess_project.rook import Rook
+from chess_project.bishop import Bishop
 from chess_project.board import c_board
 
 
@@ -42,6 +43,10 @@ for row in range(8):
             c_board.board[row][col] = Rook(row, col, "black")
         elif c_board.board[row][col] == "R":
             c_board.board[row][col] = Rook(row, col, "white")
+        elif c_board.board[row][col] == "b":
+            c_board.board[row][col] = Bishop(row, col, "black")
+        elif c_board.board[row][col] == "B":
+            c_board.board[row][col] = Bishop(row, col, "white")
 
 
 game1 = Game()
@@ -77,4 +82,25 @@ game1.take_move("b6", "b3")
 c_board.print_board()
 
 game1.take_move("c2", "b3")
+c_board.print_board()
+
+# game1.take_move("d7", "d6")
+# c_board.print_board()
+#
+# game1.take_move("c1", "h6")
+# c_board.print_board()
+#
+# game1.take_move("g7", "h6")
+# c_board.print_board()
+#
+# game1.take_move("h2", "h3")
+# c_board.print_board()
+#
+# game1.take_move("h2", "h3")
+# c_board.print_board()
+#
+# game1.take_move("c8", "h3")
+# c_board.print_board()
+
+game1.take_move("c8", "d7")
 c_board.print_board()
