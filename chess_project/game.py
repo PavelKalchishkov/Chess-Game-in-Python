@@ -11,12 +11,12 @@ class Game:
     def __init__(self):
         self.white_turn = True
 
-    def take_move(self, start_position, end_position): #d2 d4
-        start_row = ChessPiece.row_names[start_position[1]] #2 = 6
-        start_col = ChessPiece.column_names[start_position[0]] #d = 3
+    def take_move(self, start_position, end_position):
+        start_row = ChessPiece.row_names[start_position[1]]
+        start_col = ChessPiece.column_names[start_position[0]]
         try:
-            end_row = ChessPiece.row_names[end_position[1]] #4 = 4
-            end_col = ChessPiece.column_names[end_position[0]] #d = 3
+            end_row = ChessPiece.row_names[end_position[1]]
+            end_col = ChessPiece.column_names[end_position[0]]
         except KeyError:
             return print("Invalid move")
 
@@ -84,23 +84,20 @@ c_board.print_board()
 game1.take_move("c2", "b3")
 c_board.print_board()
 
-# game1.take_move("d7", "d6")
-# c_board.print_board()
-#
-# game1.take_move("c1", "h6")
-# c_board.print_board()
-#
-# game1.take_move("g7", "h6")
-# c_board.print_board()
-#
-# game1.take_move("h2", "h3")
-# c_board.print_board()
-#
-# game1.take_move("h2", "h3")
-# c_board.print_board()
-#
-# game1.take_move("c8", "h3")
-# c_board.print_board()
+game1.take_move("d7", "d6")
+c_board.print_board()
 
-game1.take_move("c8", "d7")
+game1.take_move("c1", "h6")
+c_board.print_board()
+
+game1.take_move("g7", "h6")
+c_board.print_board()
+
+game1.take_move("h2", "h3")
+c_board.print_board()
+
+game1.take_move("c8", "h3")
+c_board.print_board()
+
+game1.take_move("g2", "h3")
 c_board.print_board()
