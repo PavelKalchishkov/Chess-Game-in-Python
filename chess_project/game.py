@@ -5,6 +5,7 @@ from chess_project.rook import Rook
 from chess_project.bishop import Bishop
 from chess_project.knight import Knight
 from chess_project.queen import Queen
+from chess_project.king import King
 from chess_project.board import c_board
 
 
@@ -57,35 +58,18 @@ for row in range(8):
             c_board.board[row][col] = Queen(row, col, "black")
         elif c_board.board[row][col] == "Q":
             c_board.board[row][col] = Queen(row, col, "white")
+        elif c_board.board[row][col] == "k":
+            c_board.board[row][col] = King(row, col, "black")
+        elif c_board.board[row][col] == "K":
+            c_board.board[row][col] = King(row, col, "white")
 
 
 game1 = Game()
 
-game1.take_move("d2", "d4")
+
+game1.take_move("a2", "a4")
 c_board.print_board()
 
-game1.take_move("e7", "e5")
+game1.take_move("a4", "a5")
 c_board.print_board()
 
-game1.take_move("d1", "d3")
-c_board.print_board()
-
-game1.take_move("d8", "h4")
-c_board.print_board()
-
-game1.take_move("d3", "h7")
-c_board.print_board()
-
-game1.take_move("h4", "h7")
-c_board.print_board()
-
-game1.take_move("a2", "a3")
-c_board.print_board()
-
-c_board.print_board()
-
-game1.take_move("b2", "b3")
-c_board.print_board()
-
-game1.take_move("h2", "h8")
-c_board.print_board()
