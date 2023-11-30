@@ -66,10 +66,38 @@ for row in range(8):
 
 game1 = Game()
 
-
-game1.take_move("a2", "a4")
+game1.take_move("d2", "d4")
 c_board.print_board()
 
-game1.take_move("a4", "a5")
+game1.take_move("d7", "d5")
 c_board.print_board()
 
+game1.take_move("c2", "c4")
+c_board.print_board()
+
+game1.take_move("d7", "d5")
+c_board.print_board()
+
+game1.take_move("e7", "e6")
+c_board.print_board()
+
+game1.take_move("d7", "d5")
+c_board.print_board()
+
+game1.take_move("b1", "c3")
+c_board.print_board()
+
+game1.take_move("g8", "f6")
+c_board.print_board()
+
+game1.take_move("c1", "g5")
+c_board.print_board()
+
+game1.take_move("f8", "b4")
+c_board.print_board()
+
+game1.take_move("g5", "f6")
+c_board.print_board()
+
+game1.take_move("d8", "f6")
+c_board.print_board()

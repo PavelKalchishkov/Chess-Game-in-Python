@@ -19,27 +19,6 @@ class Knight(ChessPiece):
                 elif c_board.board[self.row + r][self.column + c].color != self.color:
                     self.valid_moves.append((r, c))
 
-    def move(self, new_position):
-        self.check_valid_moves()
 
-        if not self.valid_moves:
-            return print("Invalid move!")
-
-        new_row = new_position[0]
-        new_col = new_position[1]
-
-        diff = new_row - self.row
-        diff2 = new_col - self.column
-
-        for r, c in self.valid_moves:
-            if r == diff and c == diff2:
-                c_board.board[self.row][self.column] = "."
-                self.row = new_row
-                self.column = new_col
-                c_board.board[self.row][self.column] = self
-                break
-        else:
-            return print("Invalid move")
-        self.valid_moves = []
 
 
