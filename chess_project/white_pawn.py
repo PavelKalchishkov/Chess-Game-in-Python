@@ -1,5 +1,6 @@
 from chess_project.chess_piece import ChessPiece
 from chess_project.board import c_board
+from chess_project.queen import Queen
 
 
 class WhitePawn(ChessPiece):
@@ -24,6 +25,9 @@ class WhitePawn(ChessPiece):
 
         if self.check_range(self.row - 1, self.column - 1):
             try:
+                if ChessPiece.possible_white_enpassant:
+                    if self.row - 1 == ChessPiece.possible_white_enpassant[0] and self.column - 1 == ChessPiece.possible_white_enpassant[1]:
+                        self.valid_moves.append(WhitePawn.moves_available[2])
                 if c_board.board[self.row - 1][self.column - 1].color == "black":
                     self.valid_moves.append(WhitePawn.moves_available[2])
             except AttributeError:
@@ -31,12 +35,13 @@ class WhitePawn(ChessPiece):
 
         if self.check_range(self.row - 1, self.column + 1):
             try:
+                if ChessPiece.possible_white_enpassant:
+                    if self.row - 1 == ChessPiece.possible_white_enpassant[0] and self.column + 1 == ChessPiece.possible_white_enpassant[1]:
+                        self.valid_moves.append(WhitePawn.moves_available[3])
                 if c_board.board[self.row - 1][self.column + 1].color == "black":
                     self.valid_moves.append(WhitePawn.moves_available[3])
             except AttributeError:
                 pass
-
-        # TODO: add en passant check
 
     def move(self, new_position):
         self.check_valid_moves()
@@ -56,12 +61,15 @@ class WhitePawn(ChessPiece):
 
                 if diff == -2:
                     self.squares_traveled += 1
+                    ChessPiece.possible_black_enpassant = (self.row + 1, self.column)
                 self.squares_traveled += 1
 
+                if ChessPiece.possible_white_enpassant:
+                    if self.row == ChessPiece.possible_white_enpassant[0] and self.column == ChessPiece.possible_white_enpassant[1]:
+                        c_board.board[self.row + 1][self.column] = "."
+
                 if self.squares_traveled == 6:
-                    print("Choose promotion: 1: Queen, 2: Knight, 3: Bishop, 4: Rook")
-                    # promotion = int(input())
-                    # TODO: finish when other classes are finished
+                    c_board.board[self.row][self.column] = Queen(self.row, self.column, self.color)
                 break
         else:
             return print("Invalid move")

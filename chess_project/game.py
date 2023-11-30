@@ -27,9 +27,11 @@ class Game:
             if self.white_turn and c_board.board[start_row][start_col].color == "white":
                 c_board.board[start_row][start_col].move((end_row, end_col))
                 self.white_turn = False
+                ChessPiece.possible_white_enpassant = ()
             elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
                 c_board.board[start_row][start_col].move((end_row, end_col))
                 self.white_turn = True
+                ChessPiece.possible_black_enpassant = ()
             else:
                 return print("Invalid move")
         except AttributeError:
@@ -69,35 +71,35 @@ game1 = Game()
 game1.take_move("d2", "d4")
 c_board.print_board()
 
+game1.take_move("h7", "h6")
+c_board.print_board()
+
+game1.take_move("d4", "d5")
+c_board.print_board()
+
+game1.take_move("c7", "c5")
+c_board.print_board()
+
+game1.take_move("d5", "c6")
+c_board.print_board()
+
 game1.take_move("d7", "d5")
 c_board.print_board()
 
-game1.take_move("c2", "c4")
+game1.take_move("c6", "c7")
 c_board.print_board()
 
-game1.take_move("d7", "d5")
+game1.take_move("d5", "d4")
 c_board.print_board()
 
-game1.take_move("e7", "e6")
+game1.take_move("c7", "b8")
 c_board.print_board()
 
-game1.take_move("d7", "d5")
+game1.take_move("h6", "h5")
 c_board.print_board()
 
-game1.take_move("b1", "c3")
+game1.take_move("e2", "e4")
 c_board.print_board()
 
-game1.take_move("g8", "f6")
-c_board.print_board()
-
-game1.take_move("c1", "g5")
-c_board.print_board()
-
-game1.take_move("f8", "b4")
-c_board.print_board()
-
-game1.take_move("g5", "f6")
-c_board.print_board()
-
-game1.take_move("d8", "f6")
+game1.take_move("d4", "e3")
 c_board.print_board()
