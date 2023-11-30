@@ -8,12 +8,6 @@ class Bishop(ChessPiece):
                        (1, -1), (2, -2), (3, -3), (4, -4), (5, -5), (6, -6), (7, -7),
                        (-1, 1), (-2, 2), (-3, 3), (-4, 4), (-5, 5), (-6, 6), (-7, 7)]
 
-    def __init__(self, row, column, color):
-        self.row = row
-        self.column = column
-        self.color = color
-        self.valid_moves = []
-
     def __str__(self):
         if self.color == "white":
             return "B"

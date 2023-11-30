@@ -5,11 +5,8 @@ from chess_project.board import c_board
 class WhitePawn(ChessPiece):
     moves_available = [(-2, 0), (-1, 0), (-1, -1), (-1, 1)]
 
-    def __init__(self, row, column):
-        self.row = row
-        self.column = column
-        self.color = "white"
-        self.valid_moves = []
+    def __init__(self, row, column, color):
+        super().__init__(row, column, color)
         self.squares_traveled = 0
 
     def __str__(self):

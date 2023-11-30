@@ -3,6 +3,8 @@ from chess_project.white_pawn import WhitePawn
 from chess_project.black_pawn import BlackPawn
 from chess_project.rook import Rook
 from chess_project.bishop import Bishop
+from chess_project.knight import Knight
+from chess_project.queen import Queen
 from chess_project.board import c_board
 
 
@@ -36,9 +38,9 @@ class Game:
 for row in range(8):
     for col in range(8):
         if c_board.board[row][col] == "p":
-            c_board.board[row][col] = BlackPawn(row, col)
+            c_board.board[row][col] = BlackPawn(row, col, "black")
         elif c_board.board[row][col] == "P":
-            c_board.board[row][col] = WhitePawn(row, col)
+            c_board.board[row][col] = WhitePawn(row, col, "white")
         elif c_board.board[row][col] == "r":
             c_board.board[row][col] = Rook(row, col, "black")
         elif c_board.board[row][col] == "R":
@@ -47,6 +49,14 @@ for row in range(8):
             c_board.board[row][col] = Bishop(row, col, "black")
         elif c_board.board[row][col] == "B":
             c_board.board[row][col] = Bishop(row, col, "white")
+        elif c_board.board[row][col] == "n":
+            c_board.board[row][col] = Knight(row, col, "black")
+        elif c_board.board[row][col] == "N":
+            c_board.board[row][col] = Knight(row, col, "white")
+        elif c_board.board[row][col] == "q":
+            c_board.board[row][col] = Queen(row, col, "black")
+        elif c_board.board[row][col] == "Q":
+            c_board.board[row][col] = Queen(row, col, "white")
 
 
 game1 = Game()
@@ -54,50 +64,28 @@ game1 = Game()
 game1.take_move("d2", "d4")
 c_board.print_board()
 
-game1.take_move("c7", "c5")
+game1.take_move("e7", "e5")
 c_board.print_board()
 
-game1.take_move("d4", "c5")
+game1.take_move("d1", "d3")
 c_board.print_board()
 
-game1.take_move("a7", "a5")
+game1.take_move("d8", "h4")
 c_board.print_board()
 
-game1.take_move("a2", "a4")
+game1.take_move("d3", "h7")
 c_board.print_board()
 
-game1.take_move("a8", "a6")
+game1.take_move("h4", "h7")
 c_board.print_board()
 
-game1.take_move("a1", "a3")
+game1.take_move("a2", "a3")
 c_board.print_board()
 
-game1.take_move("a6", "b6")
 c_board.print_board()
 
-game1.take_move("a3", "b3")
+game1.take_move("b2", "b3")
 c_board.print_board()
 
-game1.take_move("b6", "b3")
-c_board.print_board()
-
-game1.take_move("c2", "b3")
-c_board.print_board()
-
-game1.take_move("d7", "d6")
-c_board.print_board()
-
-game1.take_move("c1", "h6")
-c_board.print_board()
-
-game1.take_move("g7", "h6")
-c_board.print_board()
-
-game1.take_move("h2", "h3")
-c_board.print_board()
-
-game1.take_move("c8", "h3")
-c_board.print_board()
-
-game1.take_move("g2", "h3")
+game1.take_move("h2", "h8")
 c_board.print_board()
