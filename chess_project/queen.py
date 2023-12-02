@@ -1,7 +1,5 @@
-from chess_project.chess_piece import ChessPiece
 from chess_project.rook import Rook
 from chess_project.bishop import Bishop
-from chess_project.board import c_board
 
 
 class Queen(Rook, Bishop):

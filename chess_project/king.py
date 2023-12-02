@@ -11,6 +11,9 @@ class King(ChessPiece):
         elif self.color == "black":
             return "k"
 
+    def check_for_check(self):
+        pass
+
     def check_valid_moves(self):
         for r, c in King.moves_available:
             if self.check_range(self.row + r, self.column + c):

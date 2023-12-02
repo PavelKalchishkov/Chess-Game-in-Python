@@ -16,7 +16,7 @@ class WhitePawn(ChessPiece):
     def check_valid_moves(self):
         if self.check_range(self.row - 1, self.column) and self.check_range(self.row - 2, self.column):
             if self.squares_traveled == 0:
-                if c_board.board[self.row - 1][self.column] == "." and c_board.board[self.row - 2][self.column]:
+                if c_board.board[self.row - 1][self.column] == "." and c_board.board[self.row - 2][self.column] == ".":
                     self.valid_moves.append(WhitePawn.moves_available[0])
 
         if self.check_range(self.row - 1, self.column):
