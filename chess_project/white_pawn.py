@@ -57,6 +57,10 @@ class WhitePawn(ChessPiece):
                 c_board.board[self.row][self.column] = "."
                 self.row = new_row
                 self.column = new_col
+                if c_board.board[self.row][self.column] in ChessPiece.white_pieces:
+                    ChessPiece.white_pieces.remove(c_board.board[self.row][self.column])
+                elif c_board.board[self.row][self.column] in ChessPiece.black_pieces:
+                    ChessPiece.black_pieces.remove(c_board.board[self.row][self.column])
                 c_board.board[self.row][self.column] = self
 
                 if diff == -2:

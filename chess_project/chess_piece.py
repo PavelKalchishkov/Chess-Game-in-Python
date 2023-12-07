@@ -2,6 +2,9 @@ from chess_project.board import c_board
 
 
 class ChessPiece:
+    white_pieces = []
+    black_pieces = []
+
     row_names = {'1': 7, '2': 6, '3': 5, '4': 4, '5': 3, '6': 2, '7': 1, '8': 0}
     column_names = {"a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5, "g": 6, "h": 7}
 
@@ -20,6 +23,9 @@ class ChessPiece:
             return False
         else:
             return True
+
+    def get_coordinates(self):
+        return self.row, self.column
 
     def check_valid_moves(self):
         pass
@@ -41,11 +47,16 @@ class ChessPiece:
                 c_board.board[self.row][self.column] = "."
                 self.row = new_row
                 self.column = new_col
+                if c_board.board[self.row][self.column] in ChessPiece.white_pieces:
+                    ChessPiece.white_pieces.remove(c_board.board[self.row][self.column])
+                elif c_board.board[self.row][self.column] in ChessPiece.black_pieces:
+                    ChessPiece.black_pieces.remove(c_board.board[self.row][self.column])
                 c_board.board[self.row][self.column] = self
                 break
         else:
             return print("Invalid move")
         self.valid_moves = []
+        return True
 
 
 
