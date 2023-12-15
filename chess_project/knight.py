@@ -12,12 +12,15 @@ class Knight(ChessPiece):
             return "n"
 
     def check_valid_moves(self):
+        self.valid_moves = []
         for r, c in Knight.moves_available:
             if self.check_range(self.row + r, self.column + c):
                 if c_board.board[self.row + r][self.column + c] == ".":
-                    self.valid_moves.append((r, c))
+                    self.valid_moves.append((self.row + r, self.column + c))
                 elif c_board.board[self.row + r][self.column + c].color != self.color:
-                    self.valid_moves.append((r, c))
+                    self.valid_moves.append((self.row + r, self.column + c))
+
+        return self.valid_moves
 
 
 

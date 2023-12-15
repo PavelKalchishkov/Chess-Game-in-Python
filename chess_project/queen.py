@@ -12,8 +12,14 @@ class Queen(Rook, Bishop):
             return "q"
 
     def check_valid_moves(self):
-        Rook.check_valid_moves(self)
-        Bishop.check_valid_moves(self)
+        self.valid_moves = []
+
+        for move in Rook.check_valid_moves(self):
+            self.valid_moves.append(move)
+        for move in Bishop.check_valid_moves(self):
+            self.valid_moves.append(move)
+
+        return self.valid_moves
 
 
 

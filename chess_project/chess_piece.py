@@ -1,7 +1,11 @@
+from abc import ABC, abstractmethod
+
 from chess_project.board import c_board
 
 
-class ChessPiece:
+class ChessPiece(ABC):
+    white_turn = True
+
     white_pieces = []
     black_pieces = []
 
@@ -27,35 +31,37 @@ class ChessPiece:
     def get_coordinates(self):
         return self.row, self.column
 
+    def update_coordinates(self, updated_row, updated_column):
+        c_board.board[self.row][self.column] = "."
+        self.row = updated_row
+        self.column = updated_column
+        c_board.board[self.row][self.column] = self
+
+    @abstractmethod
     def check_valid_moves(self):
         pass
 
-    def move(self, new_position):
-        self.check_valid_moves()
+    def move(self, new_row, new_col):
 
-        if not self.valid_moves:
-            return print("Invalid move!")
+        if not self.check_valid_moves():
+            print("This piece has no legal moves!")
+            return False
 
-        new_row = new_position[0]
-        new_col = new_position[1]
+        if (new_row, new_col) in self.check_valid_moves():
 
-        diff = new_row - self.row
-        diff2 = new_col - self.column
+            if c_board.board[new_row][new_col] == ".":
+                pass
+            elif c_board.board[new_row][new_col] in ChessPiece.white_pieces:
+                ChessPiece.white_pieces.remove(c_board.board[new_row][new_col])
+            elif c_board.board[new_row][new_col] in ChessPiece.black_pieces:
+                ChessPiece.black_pieces.remove(c_board.board[new_row][new_col])
 
-        for r, c in self.valid_moves:
-            if r == diff and c == diff2:
-                c_board.board[self.row][self.column] = "."
-                self.row = new_row
-                self.column = new_col
-                if c_board.board[self.row][self.column] in ChessPiece.white_pieces:
-                    ChessPiece.white_pieces.remove(c_board.board[self.row][self.column])
-                elif c_board.board[self.row][self.column] in ChessPiece.black_pieces:
-                    ChessPiece.black_pieces.remove(c_board.board[self.row][self.column])
-                c_board.board[self.row][self.column] = self
-                break
+            self.update_coordinates(new_row, new_col)
+
         else:
-            return print("Invalid move")
-        self.valid_moves = []
+            print("This move is not legal!")
+            return False
+
         return True
 
 
