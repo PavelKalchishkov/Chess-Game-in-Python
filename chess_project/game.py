@@ -36,6 +36,7 @@ class Game:
             return print("Invalid move - starting square empty!")
 
         if self.white_turn and c_board.board[start_row][start_col].color == "white":
+
             if c_board.board[start_row][start_col].move(new_row, new_col):
 
                 if self.check_if_pawn(new_row, new_col):
@@ -43,6 +44,8 @@ class Game:
 
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_white_enpassant = ()
+                if ChessPiece.check_if_black_in_check():
+                    print("Black king is in check!")
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             if c_board.board[start_row][start_col].move(new_row, new_col):
@@ -52,6 +55,8 @@ class Game:
 
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_black_enpassant = ()
+                if ChessPiece.check_if_white_in_check():
+                    print("White king is in check!")
         else:
             return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
 
@@ -99,7 +104,7 @@ game1 = Game()
 
 c_board.print_board()
 
-game1.take_move("d2", "d4")
+game1.take_move("e1", "e2")
 c_board.print_board()
 
 
