@@ -1,4 +1,6 @@
+import copy
 from abc import ABC, abstractmethod
+from copy import deepcopy
 
 from chess_project.board import c_board
 
@@ -38,7 +40,7 @@ class ChessPiece(ABC):
         c_board.board[self.row][self.column] = self
 
     @staticmethod
-    def check_if_white_in_check():
+    def check_if_white_in_check(row, column):
         attacked_squares = []
         king_row, king_col = None, None
 
@@ -52,17 +54,13 @@ class ChessPiece(ABC):
                 for move in valid_moves:
                     attacked_squares.append(move)
 
-        for piece in ChessPiece.white_pieces:
-            if str(piece) == "K":
-                king_row, king_col = piece.get_coordinates()
-
-        if (king_row, king_col) in attacked_squares:
+        if (row, column) in attacked_squares:
             return True
         else:
             return False
 
     @staticmethod
-    def check_if_black_in_check():
+    def check_if_black_in_check(row, column):
         attacked_squares = []
         king_row, king_col = None, None
 
@@ -85,8 +83,7 @@ class ChessPiece(ABC):
         else:
             return False
 
-    @staticmethod
-    def updated_king_legal_moves(row, col, legal_moves):
+    def updated_king_legal_moves(self, row, col, legal_moves):
         updated_valid_moves = []
 
         cur_row = row
@@ -95,17 +92,27 @@ class ChessPiece(ABC):
         for move in legal_moves:
             new_row = move[0]
             new_col = move[1]
-            c_board.board[cur_row][cur_col].move(new_row, new_col)
 
-            if c_board.board[new_row][new_col].color == "white":
-                if not ChessPiece.check_if_white_in_check():
-                    updated_valid_moves.append(move)
-                    c_board.board[new_row][new_col].move(cur_row, cur_col)
+            old_board = copy.deepcopy(c_board.board)
+            self.update_coordinates(new_row, new_col)
 
-            elif c_board.board[new_row][new_col].color == "black":
-                if not ChessPiece.check_if_black_in_check():
+            if self.color == "white":
+                if not ChessPiece.check_if_white_in_check(new_row, new_col):
                     updated_valid_moves.append(move)
-                    c_board.board[new_row][new_col].move(cur_row, cur_col)
+                    self.update_coordinates(cur_row, cur_col)
+                    c_board.board = old_board
+                else:
+                    self.update_coordinates(cur_row, cur_col)
+                    c_board.board = old_board
+
+            elif self.color == "black":
+                if not ChessPiece.check_if_black_in_check(new_row, new_col):
+                    updated_valid_moves.append(move)
+                    self.update_coordinates(cur_row, cur_col)
+                    c_board.board = old_board
+                else:
+                    self.update_coordinates(cur_row, cur_col)
+                    c_board.board = old_board
 
         return updated_valid_moves
 
@@ -122,7 +129,7 @@ class ChessPiece(ABC):
             return False
 
         if str(self) == "k" or str(self) == "K":
-            legal_moves = ChessPiece.updated_king_legal_moves(self.row, self.column, legal_moves)
+            legal_moves = self.updated_king_legal_moves(self.row, self.column, legal_moves)
             if not legal_moves:
                 print("This piece has no legal moves!")
                 return False
