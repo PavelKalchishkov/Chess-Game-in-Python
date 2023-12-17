@@ -42,7 +42,6 @@ class ChessPiece(ABC):
     @staticmethod
     def check_if_white_in_check(row, column):
         attacked_squares = []
-        king_row, king_col = None, None
 
         for piece in ChessPiece.black_pieces:
             cur_row, cur_col = piece.get_coordinates()
@@ -62,7 +61,6 @@ class ChessPiece(ABC):
     @staticmethod
     def check_if_black_in_check(row, column):
         attacked_squares = []
-        king_row, king_col = None, None
 
         for piece in ChessPiece.white_pieces:
             cur_row, cur_col = piece.get_coordinates()
@@ -71,14 +69,11 @@ class ChessPiece(ABC):
                 attacked_squares.append((cur_row - 1, cur_col + 1))
             else:
                 valid_moves = piece.check_valid_moves()
-                for move in valid_moves:
-                    attacked_squares.append(move)
+                if valid_moves:
+                    for move in valid_moves:
+                        attacked_squares.append(move)
 
-        for piece in ChessPiece.black_pieces:
-            if str(piece) == "k":
-                king_row, king_col = piece.get_coordinates()
-
-        if (king_row, king_col) in attacked_squares:
+        if (row, column) in attacked_squares:
             return True
         else:
             return False

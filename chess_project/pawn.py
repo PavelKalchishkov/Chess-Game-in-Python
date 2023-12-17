@@ -67,7 +67,7 @@ class Pawn(ChessPiece):
                 if ChessPiece.possible_white_enpassant:
                     if (self.row - 1) == ChessPiece.possible_white_enpassant[0] and (self.column - 1) == ChessPiece.possible_white_enpassant[1]:
                         self.valid_moves.append((self.row - 1, self.column - 1))
-                elif c_board.board[self.row - 1][self.column - 1] == ".":
+                if c_board.board[self.row - 1][self.column - 1] == ".":
                     pass
                 elif c_board.board[self.row - 1][self.column - 1].color == "black":
                     self.valid_moves.append((self.row - 1, self.column - 1))
@@ -76,7 +76,7 @@ class Pawn(ChessPiece):
                 if ChessPiece.possible_white_enpassant:
                     if (self.row - 1) == ChessPiece.possible_white_enpassant[0] and (self.column + 1) == ChessPiece.possible_white_enpassant[1]:
                         self.valid_moves.append((self.row - 1, self.column + 1))
-                elif c_board.board[self.row - 1][self.column + 1] == ".":
+                if c_board.board[self.row - 1][self.column + 1] == ".":
                     pass
                 elif c_board.board[self.row - 1][self.column + 1].color == "black":
                     self.valid_moves.append((self.row - 1, self.column + 1))
@@ -94,7 +94,7 @@ class Pawn(ChessPiece):
                 if ChessPiece.possible_black_enpassant:
                     if (self.row + 1) == ChessPiece.possible_black_enpassant[0] and (self.column + 1) == ChessPiece.possible_black_enpassant[1]:
                         self.valid_moves.append((self.row + 1, self.column + 1))
-                elif c_board.board[self.row + 1][self.column + 1] == ".":
+                if c_board.board[self.row + 1][self.column + 1] == ".":
                     pass
                 elif c_board.board[self.row + 1][self.column + 1].color == "black":
                     self.valid_moves.append((self.row + 1, self.column + 1))
@@ -103,7 +103,7 @@ class Pawn(ChessPiece):
                 if ChessPiece.possible_black_enpassant:
                     if (self.row + 1) == ChessPiece.possible_black_enpassant[0] and (self.column - 1) == ChessPiece.possible_black_enpassant[1]:
                         self.valid_moves.append((self.row + 1, self.column - 1))
-                elif c_board.board[self.row + 1][self.column - 1] == ".":
+                if c_board.board[self.row + 1][self.column - 1] == ".":
                     pass
                 elif c_board.board[self.row + 1][self.column - 1].color == "black":
                     self.valid_moves.append((self.row + 1, self.column - 1))

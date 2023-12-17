@@ -49,6 +49,8 @@ class Game:
                     if str(piece) == "k":
                         if ChessPiece.check_if_black_in_check(piece.row, piece.column):
                             print("Black king is in check!")
+                        else:
+                            pass
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             if c_board.board[start_row][start_col].move(new_row, new_col):
@@ -63,6 +65,8 @@ class Game:
                     if str(piece) == "K":
                         if ChessPiece.check_if_white_in_check(piece.row, piece.column):
                             print("White king is in check!")
+                        else:
+                            pass
         else:
             return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
 
@@ -110,12 +114,17 @@ game1 = Game()
 
 c_board.print_board()
 
-game1.take_move("e1", "f1")
+game1.take_move("d2", "d4")
 c_board.print_board()
 
+game1.take_move("e7", "e5")
+c_board.print_board()
 
+game1.take_move("d4", "e5")
+c_board.print_board()
 
-
+game1.take_move("f8", "b4")
+c_board.print_board()
 
 
 
