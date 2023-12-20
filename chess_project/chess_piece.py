@@ -139,6 +139,7 @@ class ChessPiece(ABC):
                 ChessPiece.black_pieces.remove(c_board.board[new_row][new_col])
 
             self.update_coordinates(new_row, new_col)
+            print(self.get_coordinates())
 
         else:
             print("This move is not legal!")

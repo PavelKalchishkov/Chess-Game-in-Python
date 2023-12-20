@@ -126,5 +126,17 @@ c_board.print_board()
 game1.take_move("f8", "b4")
 c_board.print_board()
 
+game1.take_move("c2", "c3")
+c_board.print_board()
 
+game1.take_move("a7", "a5")
+c_board.print_board()
 
+game1.take_move("a2", "a4")
+c_board.print_board()
+
+game1.take_move("a8", "a5")
+c_board.print_board()
+
+game1.take_move("a8", "a6")
+c_board.print_board()
