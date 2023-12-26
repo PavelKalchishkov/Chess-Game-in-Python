@@ -11,13 +11,21 @@ from chess_project.board import c_board
 
 
 class Game:
-
     def __init__(self):
         self.white_turn = True
+        self.white_king_coordinates = []
+        self.black_king_coordinates = []
 
     @staticmethod
     def check_if_pawn(start_row, start_col):
         if str(c_board.board[start_row][start_col]) == "p" or str(c_board.board[start_row][start_col]) == "P":
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def check_if_king(start_row, start_col):
+        if str(c_board.board[start_row][start_col]) == "k" or str(c_board.board[start_row][start_col]) == "K":
             return True
         else:
             return False
@@ -36,40 +44,46 @@ class Game:
             return print("Invalid move - starting square empty!")
 
         if self.white_turn and c_board.board[start_row][start_col].color == "white":
-
             if c_board.board[start_row][start_col].move(new_row, new_col):
+
+                if self.check_if_king(new_row, new_col):
+                    self.white_king_coordinates = [new_row, new_col]
+
+                white_king_row, white_king_col = self.white_king_coordinates
+                if ChessPiece.check_if_white_in_check(white_king_row, white_king_col):
+                    if self.check_if_king(new_row, new_col):
+                        self.white_king_coordinates = [start_row, start_col]
+                    c_board.board[new_row][new_col].update_coordinates(start_row, start_col)
+                    return print("White king is in check, this move is illegal!")
 
                 if self.check_if_pawn(new_row, new_col):
                     c_board.board[new_row][new_col].update_pawn_attributes(start_row, start_col, new_row, new_col)
-
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_white_enpassant = ()
-
-                for piece in ChessPiece.black_pieces:
-                    if str(piece) == "k":
-                        if ChessPiece.check_if_black_in_check(piece.row, piece.column):
-                            print("Black king is in check!")
-                        else:
-                            pass
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             if c_board.board[start_row][start_col].move(new_row, new_col):
 
+                if self.check_if_king(new_row, new_col):
+                    self.black_king_coordinates = [new_row, new_col]
+
+                black_king_row, black_king_col = self.black_king_coordinates
+                if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
+                    if self.check_if_king(new_row, new_col):
+                        self.black_king_coordinates = [start_row, start_col]
+                    c_board.board[new_row][new_col].update_coordinates(start_row, start_col)
+                    return print("Black king is in check, this move is illegal!")
+
                 if self.check_if_pawn(new_row, new_col):
                     c_board.board[new_row][new_col].update_pawn_attributes(start_row, start_col, new_row, new_col)
-
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_black_enpassant = ()
 
-                for piece in ChessPiece.white_pieces:
-                    if str(piece) == "K":
-                        if ChessPiece.check_if_white_in_check(piece.row, piece.column):
-                            print("White king is in check!")
-                        else:
-                            pass
         else:
             return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
 
+
+game1 = Game()
 
 for row in range(8):
     for col in range(8):
@@ -106,37 +120,43 @@ for row in range(8):
         elif c_board.board[row][col] == "k":
             c_board.board[row][col] = King(row, col, "black")
             ChessPiece.black_pieces.append(c_board.board[row][col])
+            game1.black_king_coordinates = [row, col]
         elif c_board.board[row][col] == "K":
             c_board.board[row][col] = King(row, col, "white")
             ChessPiece.white_pieces.append(c_board.board[row][col])
-
-game1 = Game()
+            game1.white_king_coordinates = [row, col]
 
 c_board.print_board()
 
-game1.take_move("d2", "d4")
+game1.take_move("f7", "f8")
 c_board.print_board()
 
-game1.take_move("e7", "e5")
+game1.take_move("c3", "e3")
 c_board.print_board()
 
-game1.take_move("d4", "e5")
+game1.take_move("f8", "f7")
 c_board.print_board()
 
-game1.take_move("f8", "b4")
+game1.take_move("e8", "d8")
 c_board.print_board()
 
-game1.take_move("c2", "c3")
+game1.take_move("e3", "d3")
 c_board.print_board()
 
-game1.take_move("a7", "a5")
+game1.take_move("d8", "d7")
 c_board.print_board()
 
-game1.take_move("a2", "a4")
+game1.take_move("d8", "c8")
 c_board.print_board()
 
-game1.take_move("a8", "a5")
+game1.take_move("d3", "c3")
 c_board.print_board()
 
-game1.take_move("a8", "a6")
+game1.take_move("c8", "b8")
+c_board.print_board()
+
+game1.take_move("c3", "b3")
+c_board.print_board()
+
+game1.take_move("b8", "b7")
 c_board.print_board()
