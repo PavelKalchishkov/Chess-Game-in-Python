@@ -1,15 +1,11 @@
-import copy
 from abc import ABC, abstractmethod
-from copy import deepcopy
+
 
 from chess_project.board import c_board
 
 
 class ChessPiece(ABC):
     white_turn = True
-
-    white_pieces = []
-    black_pieces = []
 
     row_names = {'1': 7, '2': 6, '3': 5, '4': 4, '5': 3, '6': 2, '7': 1, '8': 0}
     column_names = {"a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5, "g": 6, "h": 7}
@@ -30,10 +26,34 @@ class ChessPiece(ABC):
         else:
             return True
 
+    @staticmethod
+    def find_all_white_pieces():
+        white_pieces = []
+        for row in range(8):
+            for col in range(8):
+                if c_board.board[row][col] == ".":
+                    pass
+                elif c_board.board[row][col].color == "white":
+                    white_pieces.append(c_board.board[row][col])
+
+        return white_pieces
+
+    @staticmethod
+    def find_all_black_pieces():
+        black_pieces = []
+        for row in range(8):
+            for col in range(8):
+                if c_board.board[row][col] == ".":
+                    pass
+                elif c_board.board[row][col].color == "black":
+                    black_pieces.append(c_board.board[row][col])
+
+        return black_pieces
+
     @classmethod
     def get_white_attacked_squares(cls):
         attacked_squares = []
-        for piece in cls.white_pieces:
+        for piece in cls.find_all_white_pieces():
             cur_row, cur_col = piece.get_coordinates()
             if str(piece) == "P":
                 attacked_squares.append((cur_row - 1, cur_col - 1))
@@ -48,7 +68,7 @@ class ChessPiece(ABC):
     @classmethod
     def get_black_attacked_squares(cls):
         attacked_squares = []
-        for piece in cls.black_pieces:
+        for piece in cls.find_all_black_pieces():
             cur_row, cur_col = piece.get_coordinates()
             if str(piece) == "p":
                 attacked_squares.append((cur_row + 1, cur_col + 1))
@@ -97,13 +117,6 @@ class ChessPiece(ABC):
             return False
 
         if (new_row, new_col) in legal_moves:
-            if c_board.board[new_row][new_col] == ".":
-                pass
-            elif c_board.board[new_row][new_col] in ChessPiece.white_pieces:
-                ChessPiece.white_pieces.remove(c_board.board[new_row][new_col])
-            elif c_board.board[new_row][new_col] in ChessPiece.black_pieces:
-                ChessPiece.black_pieces.remove(c_board.board[new_row][new_col])
-
             self.update_coordinates(new_row, new_col)
             return True
 

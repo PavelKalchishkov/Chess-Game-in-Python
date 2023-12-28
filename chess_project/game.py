@@ -31,6 +31,7 @@ class Game:
             return False
 
     def take_move(self, start_position, new_position):
+        old_piece = None
         try:
             start_row = ChessPiece.row_names[start_position[1]]
             start_col = ChessPiece.column_names[start_position[0]]
@@ -43,7 +44,11 @@ class Game:
         if c_board.board[start_row][start_col] == ".":
             return print("Invalid move - starting square empty!")
 
+        if c_board.board[new_row][new_col] != ".":
+            old_piece = copy.copy(c_board.board[new_row][new_col])
+
         if self.white_turn and c_board.board[start_row][start_col].color == "white":
+            old_board = copy.deepcopy(c_board.board)
             if c_board.board[start_row][start_col].move(new_row, new_col):
 
                 if self.check_if_king(new_row, new_col):
@@ -54,6 +59,7 @@ class Game:
                     if self.check_if_king(new_row, new_col):
                         self.white_king_coordinates = [start_row, start_col]
                     c_board.board[new_row][new_col].update_coordinates(start_row, start_col)
+                    c_board.board = old_board
                     return print("White king is in check, this move is illegal!")
 
                 if self.check_if_pawn(new_row, new_col):
@@ -62,6 +68,7 @@ class Game:
                 ChessPiece.possible_white_enpassant = ()
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
+            old_board = copy.deepcopy(c_board.board)
             if c_board.board[start_row][start_col].move(new_row, new_col):
 
                 if self.check_if_king(new_row, new_col):
@@ -72,6 +79,7 @@ class Game:
                     if self.check_if_king(new_row, new_col):
                         self.black_king_coordinates = [start_row, start_col]
                     c_board.board[new_row][new_col].update_coordinates(start_row, start_col)
+                    c_board.board = old_board
                     return print("Black king is in check, this move is illegal!")
 
                 if self.check_if_pawn(new_row, new_col):
@@ -89,74 +97,74 @@ for row in range(8):
     for col in range(8):
         if c_board.board[row][col] == "p":
             c_board.board[row][col] = Pawn(row, col, "black")
-            ChessPiece.black_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "P":
             c_board.board[row][col] = Pawn(row, col, "white")
-            ChessPiece.white_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "r":
             c_board.board[row][col] = Rook(row, col, "black")
-            ChessPiece.black_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "R":
             c_board.board[row][col] = Rook(row, col, "white")
-            ChessPiece.white_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "b":
             c_board.board[row][col] = Bishop(row, col, "black")
-            ChessPiece.black_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "B":
             c_board.board[row][col] = Bishop(row, col, "white")
-            ChessPiece.white_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "n":
             c_board.board[row][col] = Knight(row, col, "black")
-            ChessPiece.black_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "N":
             c_board.board[row][col] = Knight(row, col, "white")
-            ChessPiece.white_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "q":
             c_board.board[row][col] = Queen(row, col, "black")
-            ChessPiece.black_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "Q":
             c_board.board[row][col] = Queen(row, col, "white")
-            ChessPiece.white_pieces.append(c_board.board[row][col])
         elif c_board.board[row][col] == "k":
             c_board.board[row][col] = King(row, col, "black")
-            ChessPiece.black_pieces.append(c_board.board[row][col])
             game1.black_king_coordinates = [row, col]
         elif c_board.board[row][col] == "K":
             c_board.board[row][col] = King(row, col, "white")
-            ChessPiece.white_pieces.append(c_board.board[row][col])
             game1.white_king_coordinates = [row, col]
 
 c_board.print_board()
 
-game1.take_move("f7", "f8")
+game1.take_move("c2", "d2")
 c_board.print_board()
 
-game1.take_move("c3", "e3")
+game1.take_move("d8", "e8")
+c_board.print_board()
+
+game1.take_move("b3", "e3")
+c_board.print_board()
+
+game1.take_move("e8", "e7")
+c_board.print_board()
+
+game1.take_move("e8", "f8")
+c_board.print_board()
+
+game1.take_move("d2", "f2")
 c_board.print_board()
 
 game1.take_move("f8", "f7")
 c_board.print_board()
 
-game1.take_move("e8", "d8")
+game1.take_move("f8", "g8")
 c_board.print_board()
 
-game1.take_move("e3", "d3")
+game1.take_move("e3", "g3")
 c_board.print_board()
 
-game1.take_move("d8", "d7")
+game1.take_move("g8", "g7")
 c_board.print_board()
 
-game1.take_move("d8", "c8")
+game1.take_move("g8", "f7")
 c_board.print_board()
 
-game1.take_move("d3", "c3")
+game1.take_move("g8", "h7")
 c_board.print_board()
 
-game1.take_move("c8", "b8")
+game1.take_move("f2", "h2")
 c_board.print_board()
 
-game1.take_move("c3", "b3")
+game1.take_move("h7", "h6")
 c_board.print_board()
 
-game1.take_move("b8", "b7")
+game1.take_move("h7", "g7")
 c_board.print_board()
