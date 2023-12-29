@@ -67,6 +67,10 @@ class Game:
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_white_enpassant = ()
 
+            black_king_row, black_king_col = self.black_king_coordinates
+            if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
+                print("Black is in check!")
+
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             old_board = copy.deepcopy(c_board.board)
             if c_board.board[start_row][start_col].move(new_row, new_col):
@@ -86,6 +90,10 @@ class Game:
                     c_board.board[new_row][new_col].update_pawn_attributes(start_row, start_col, new_row, new_col)
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_black_enpassant = ()
+
+            white_king_row, white_king_col = self.white_king_coordinates
+            if ChessPiece.check_if_white_in_check(white_king_row, white_king_col):
+                print("White is in check!")
 
         else:
             return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
@@ -124,47 +132,9 @@ for row in range(8):
 
 c_board.print_board()
 
-game1.take_move("c2", "d2")
+game1.take_move("e8", "d8")
 c_board.print_board()
 
-game1.take_move("d8", "e8")
-c_board.print_board()
 
-game1.take_move("b3", "e3")
-c_board.print_board()
 
-game1.take_move("e8", "e7")
-c_board.print_board()
 
-game1.take_move("e8", "f8")
-c_board.print_board()
-
-game1.take_move("d2", "f2")
-c_board.print_board()
-
-game1.take_move("f8", "f7")
-c_board.print_board()
-
-game1.take_move("f8", "g8")
-c_board.print_board()
-
-game1.take_move("e3", "g3")
-c_board.print_board()
-
-game1.take_move("g8", "g7")
-c_board.print_board()
-
-game1.take_move("g8", "f7")
-c_board.print_board()
-
-game1.take_move("g8", "h7")
-c_board.print_board()
-
-game1.take_move("f2", "h2")
-c_board.print_board()
-
-game1.take_move("h7", "h6")
-c_board.print_board()
-
-game1.take_move("h7", "g7")
-c_board.print_board()
