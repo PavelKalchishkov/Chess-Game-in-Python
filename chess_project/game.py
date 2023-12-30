@@ -132,8 +132,16 @@ for row in range(8):
 
 c_board.print_board()
 
-game1.take_move("e8", "d8")
+game1.take_move("h8", "h7")
 c_board.print_board()
+
+game1.take_move("f1", "d3")
+c_board.print_board()
+
+white_king_row, white_king_col = game1.white_king_coordinates
+ChessPiece.check_white_checkmate(white_king_row, white_king_col)
+
+
 
 
 

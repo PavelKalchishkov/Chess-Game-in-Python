@@ -16,13 +16,11 @@ class Queen(Rook, Bishop):
         moves_from_rook = []
         moves_from_bishop = []
 
-        if moves_from_rook:
-            for move in Rook.check_valid_moves(self):
-                moves_from_rook.append(move)
+        for move in Rook.check_valid_moves(self):
+            moves_from_rook.append(move)
 
-        if moves_from_bishop:
-            for move in Bishop.check_valid_moves(self):
-                moves_from_bishop.append(move)
+        for move in Bishop.check_valid_moves(self):
+            moves_from_bishop.append(move)
 
         self.valid_moves = moves_from_rook + moves_from_bishop
 
