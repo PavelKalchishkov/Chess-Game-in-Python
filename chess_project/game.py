@@ -45,7 +45,7 @@ class Game:
             return print("Invalid move - starting square empty!")
 
         if c_board.board[new_row][new_col] != ".":
-            old_piece = copy.copy(c_board.board[new_row][new_col])
+            old_piece = c_board.board[new_row][new_col]
 
         if self.white_turn and c_board.board[start_row][start_col].color == "white":
             old_board = copy.deepcopy(c_board.board)
@@ -59,6 +59,8 @@ class Game:
                     if self.check_if_king(new_row, new_col):
                         self.white_king_coordinates = [start_row, start_col]
                     c_board.board[new_row][new_col].update_coordinates(start_row, start_col)
+                    if old_piece:
+                        c_board.board[new_row][new_col] = old_piece
                     c_board.board = old_board
                     return print("White king is in check, this move is illegal!")
 
@@ -83,6 +85,8 @@ class Game:
                     if self.check_if_king(new_row, new_col):
                         self.black_king_coordinates = [start_row, start_col]
                     c_board.board[new_row][new_col].update_coordinates(start_row, start_col)
+                    if old_piece:
+                        c_board.board[new_row][new_col] = old_piece
                     c_board.board = old_board
                     return print("Black king is in check, this move is illegal!")
 
@@ -132,10 +136,19 @@ for row in range(8):
 
 c_board.print_board()
 
+game1.take_move("h8", "h7")
+c_board.print_board()
+
+game1.take_move("g5", "g6")
+c_board.print_board()
+
+game1.take_move("h7", "g6")
+c_board.print_board()
+
 game1.take_move("h7", "h8")
 c_board.print_board()
 
-game1.take_move("g5", "h5")
+game1.take_move("g6", "g7")
 c_board.print_board()
 
 white_king_row, white_king_col = game1.white_king_coordinates
