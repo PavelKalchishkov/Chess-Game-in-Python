@@ -71,7 +71,10 @@ class Game:
 
             black_king_row, black_king_col = self.black_king_coordinates
             if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
-                print("Black is in check!")
+                if ChessPiece.check_black_checkmate(black_king_row, black_king_col):
+                    print("Checkmate! White wins!")
+                else:
+                    print("Black is in check!")
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             old_board = copy.deepcopy(c_board.board)
@@ -97,7 +100,10 @@ class Game:
 
             white_king_row, white_king_col = self.white_king_coordinates
             if ChessPiece.check_if_white_in_check(white_king_row, white_king_col):
-                print("White is in check!")
+                if ChessPiece.check_white_checkmate(white_king_row, white_king_col):
+                    print("Checkmate! Black wins!")
+                else:
+                    print("White is in check!")
 
         else:
             return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
@@ -136,13 +142,37 @@ for row in range(8):
 
 c_board.print_board()
 
+# game1.take_move("h8", "h7")
+# c_board.print_board()
+#
+# game1.take_move("g5", "g6")
+# c_board.print_board()
+#
+# game1.take_move("h7", "g6")
+# c_board.print_board()
+#
+# game1.take_move("h7", "g8")
+# c_board.print_board()
+#
+# game1.take_move("h7", "h8")
+# c_board.print_board()
+#
+# game1.take_move("g6", "g7")
+# c_board.print_board()
+
+game1.take_move("g5", "g4")
+c_board.print_board()
+
 game1.take_move("h8", "h7")
 c_board.print_board()
 
-game1.take_move("g5", "g6")
+game1.take_move("g4", "g6")
 c_board.print_board()
 
 game1.take_move("h7", "g6")
+c_board.print_board()
+
+game1.take_move("h7", "g8")
 c_board.print_board()
 
 game1.take_move("h7", "h8")
@@ -150,13 +180,6 @@ c_board.print_board()
 
 game1.take_move("g6", "g7")
 c_board.print_board()
-
-white_king_row, white_king_col = game1.white_king_coordinates
-ChessPiece.check_white_checkmate(white_king_row, white_king_col)
-
-
-
-
 
 
 
