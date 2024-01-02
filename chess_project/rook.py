@@ -8,6 +8,10 @@ class Rook(ChessPiece):
                        (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7),
                        (0, -1), (0, -2), (0, -3), (0, -4), (0, -5), (0, -6), (0, -7)]
 
+    def __init__(self, row, column, color):
+        super().__init__(row, column, color)
+        self.has_moved = False
+
     def __str__(self):
         if self.color == "white":
             return "R"

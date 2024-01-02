@@ -5,6 +5,10 @@ from chess_project.board import c_board
 class King(ChessPiece):
     moves_available = [(1, 0), (1, 1), (1, -1), (0, 1), (0, -1), (-1, 0), (-1, 1), (-1, -1)]
 
+    def __init__(self, row, column, color):
+        super().__init__(row, column, color)
+        self.has_moved = False
+
     def __str__(self):
         if self.color == "white":
             return "K"

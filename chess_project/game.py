@@ -30,6 +30,13 @@ class Game:
         else:
             return False
 
+    @staticmethod
+    def check_if_rook(start_row, start_col):
+        if str(c_board.board[start_row][start_col]) == "r" or str(c_board.board[start_row][start_col]) == "R":
+            return True
+        else:
+            return False
+
     def take_move(self, start_position, new_position):
         old_piece = None
         try:
@@ -52,7 +59,11 @@ class Game:
             if c_board.board[start_row][start_col].move(new_row, new_col):
 
                 if self.check_if_king(new_row, new_col):
+                    c_board.board[new_row][new_col].has_moved = True
                     self.white_king_coordinates = [new_row, new_col]
+
+                if self.check_if_rook(new_row, new_col):
+                    c_board.board[new_row][new_col].has_moved = True
 
                 white_king_row, white_king_col = self.white_king_coordinates
                 if ChessPiece.check_if_white_in_check(white_king_row, white_king_col):
@@ -81,7 +92,11 @@ class Game:
             if c_board.board[start_row][start_col].move(new_row, new_col):
 
                 if self.check_if_king(new_row, new_col):
+                    c_board.board[new_row][new_col].has_moved = True
                     self.black_king_coordinates = [new_row, new_col]
+
+                if self.check_if_rook(new_row, new_col):
+                    c_board.board[new_row][new_col].has_moved = True
 
                 black_king_row, black_king_col = self.black_king_coordinates
                 if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
@@ -142,44 +157,10 @@ for row in range(8):
 
 c_board.print_board()
 
-# game1.take_move("h8", "h7")
-# c_board.print_board()
-#
-# game1.take_move("g5", "g6")
-# c_board.print_board()
-#
-# game1.take_move("h7", "g6")
-# c_board.print_board()
-#
-# game1.take_move("h7", "g8")
-# c_board.print_board()
-#
-# game1.take_move("h7", "h8")
-# c_board.print_board()
-#
-# game1.take_move("g6", "g7")
-# c_board.print_board()
-
-game1.take_move("g5", "g4")
+game1.take_move("e1", "h1")
 c_board.print_board()
 
-game1.take_move("h8", "h7")
-c_board.print_board()
 
-game1.take_move("g4", "g6")
-c_board.print_board()
-
-game1.take_move("h7", "g6")
-c_board.print_board()
-
-game1.take_move("h7", "g8")
-c_board.print_board()
-
-game1.take_move("h7", "h8")
-c_board.print_board()
-
-game1.take_move("g6", "g7")
-c_board.print_board()
 
 
 

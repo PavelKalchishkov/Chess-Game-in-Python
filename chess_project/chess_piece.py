@@ -223,6 +223,58 @@ class ChessPiece(ABC):
                 if not ChessPiece.check_if_black_pieces_can_stop_check(king_row, king_col):
                     return True
 
+    @staticmethod
+    def check_white_castling(curr_row, curr_col, new_row, new_col):
+        if curr_row == 7 and curr_col == 4 and new_row == 7 and new_col == 7:
+            if c_board.board[7][4] == "." or c_board.board[7][7] == ".":
+                print("Castling not possible in this position!")
+                return False
+            if ChessPiece.check_if_white_in_check(7, 4):
+                print("You can't castle when your king is in check!")
+                return False
+            elif c_board.board[7][5] != "." or c_board.board[7][6] != ".":
+                print("You can't castle when there's a piece between your rook and your king!")
+                return False
+            elif ChessPiece.check_if_white_in_check(7, 5) or ChessPiece.check_if_white_in_check(7, 6):
+                print("You can't castle when the squares between your rook and your king are attacked!")
+                return False
+            elif c_board.board[7][4].has_moved or c_board.board[7][7].has_moved:
+                print("You can't castle after moving your king or your rook!")
+                return False
+            else:
+                c_board.board[7][4].update_coordinates(7, 6)
+                c_board.board[7][7].update_coordinates(7, 5)
+
+                c_board.board[7][6].has_moved = True
+                c_board.board[7][5].has_moved = True
+
+                return True
+
+        elif curr_row == 7 and curr_col == 4 and new_row == 7 and new_col == 0:
+            if c_board.board[7][4] == "." or c_board.board[7][0] == ".":
+                print("Castling not possible in this position!")
+                return False
+            if ChessPiece.check_if_white_in_check(7, 4):
+                print("You can't castle when your king is in check!")
+                return False
+            elif c_board.board[7][3] != "." or c_board.board[7][2] != "." or c_board.board[7][1] != ".":
+                print("You can't castle when there's a piece between your rook and your king!")
+                return False
+            elif ChessPiece.check_if_white_in_check(7, 3) or ChessPiece.check_if_white_in_check(7, 2) or ChessPiece.check_if_white_in_check(7, 1):
+                print("You can't castle when the squares between your rook and your king are attacked!")
+                return False
+            elif c_board.board[7][4].has_moved or c_board.board[7][0].has_moved:
+                print("You can't castle after moving your king or your rook!")
+                return False
+            else:
+                c_board.board[7][4].update_coordinates(7, 2)
+                c_board.board[7][0].update_coordinates(7, 3)
+
+                c_board.board[7][2].has_moved = True
+                c_board.board[7][3].has_moved = True
+
+                return True
+
     def get_coordinates(self):
         return self.row, self.column
 
@@ -245,6 +297,9 @@ class ChessPiece(ABC):
 
         if (new_row, new_col) in legal_moves:
             self.update_coordinates(new_row, new_col)
+            return True
+
+        if ChessPiece.check_white_castling(self.row, self.column, new_row, new_col):
             return True
 
         else:

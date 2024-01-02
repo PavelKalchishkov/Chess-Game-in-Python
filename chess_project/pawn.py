@@ -30,7 +30,6 @@ class Pawn(ChessPiece):
 
             if ChessPiece.possible_white_enpassant:
                 if self.row == ChessPiece.possible_white_enpassant[0] and self.column == ChessPiece.possible_white_enpassant[1]:
-                    ChessPiece.black_pieces.remove(c_board.board[self.row + 1][self.column])
                     c_board.board[self.row + 1][self.column] = "."
 
             if self.squares_traveled == 6:
@@ -45,7 +44,6 @@ class Pawn(ChessPiece):
 
             if ChessPiece.possible_black_enpassant:
                 if self.row == ChessPiece.possible_black_enpassant[0] and self.column == ChessPiece.possible_black_enpassant[1]:
-                    ChessPiece.white_pieces.remove(c_board.board[self.row - 1][self.column])
                     c_board.board[self.row - 1][self.column] = "."
 
             if self.squares_traveled == 6:
