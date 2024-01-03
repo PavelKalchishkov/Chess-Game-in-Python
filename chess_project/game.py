@@ -157,9 +157,11 @@ for row in range(8):
 
 c_board.print_board()
 
-game1.take_move("e1", "h1")
+game1.take_move("e1", "e2")
 c_board.print_board()
 
+game1.take_move("e8", "h8")
+c_board.print_board()
 
 
 
