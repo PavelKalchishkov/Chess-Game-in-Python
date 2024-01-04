@@ -15,6 +15,14 @@ class Game:
         self.white_turn = True
         self.white_king_coordinates = []
         self.black_king_coordinates = []
+        self.counter = 0
+
+    @staticmethod
+    def check_count_of_pieces_on_board():
+        count_pieces = 0
+        count_pieces = len(ChessPiece.find_all_white_pieces()) + len(ChessPiece.find_all_black_pieces())
+
+        return count_pieces
 
     @staticmethod
     def check_if_pawn(start_row, start_col):
@@ -39,6 +47,8 @@ class Game:
 
     def take_move(self, start_position, new_position):
         old_piece = None
+        count_pieces = Game.check_count_of_pieces_on_board()
+
         try:
             start_row = ChessPiece.row_names[start_position[1]]
             start_col = ChessPiece.column_names[start_position[0]]
@@ -77,8 +87,14 @@ class Game:
 
                 if self.check_if_pawn(new_row, new_col):
                     c_board.board[new_row][new_col].update_pawn_attributes(start_row, start_col, new_row, new_col)
+                    self.counter = 0
+
+                if count_pieces != Game.check_count_of_pieces_on_board():
+                    self.counter = 0
+
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_white_enpassant = ()
+                self.counter += 1
 
             black_king_row, black_king_col = self.black_king_coordinates
             if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
@@ -92,6 +108,9 @@ class Game:
 
             if ChessPiece.check_insufficient_material():
                 print("Draw by insufficient material!")
+
+            if self.counter == 100:
+                print("Draw by 50 move rule!")
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             old_board = copy.deepcopy(c_board.board)
@@ -116,8 +135,14 @@ class Game:
 
                 if self.check_if_pawn(new_row, new_col):
                     c_board.board[new_row][new_col].update_pawn_attributes(start_row, start_col, new_row, new_col)
+                    self.counter = 0
+
+                if count_pieces != Game.check_count_of_pieces_on_board():
+                    self.counter = 0
+
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_black_enpassant = ()
+                self.counter += 1
 
             white_king_row, white_king_col = self.white_king_coordinates
             if ChessPiece.check_if_white_in_check(white_king_row, white_king_col):
@@ -131,6 +156,9 @@ class Game:
 
             if ChessPiece.check_insufficient_material():
                 print("Draw by insufficient material!")
+
+            if self.counter == 100:
+                print("Draw by 50 move rule!")
 
         else:
             return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
@@ -169,11 +197,26 @@ for row in range(8):
 
 c_board.print_board()
 
-game1.take_move("g8", "g7")
+game1.take_move("f7", "f6")
 c_board.print_board()
+print(game1.counter)
 
-game1.take_move("h1", "h7")
+game1.take_move("d2", "e2")
 c_board.print_board()
+print(game1.counter)
 
-game1.take_move("g7", "h7")
+game1.take_move("f6", "f7")
 c_board.print_board()
+print(game1.counter)
+
+game1.take_move("e2", "d2")
+c_board.print_board()
+print(game1.counter)
+
+game1.take_move("f7", "f6")
+c_board.print_board()
+print(game1.counter)
+
+game1.take_move("d2", "a2")
+c_board.print_board()
+print(game1.counter)
