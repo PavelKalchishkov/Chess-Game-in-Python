@@ -12,16 +12,37 @@ from chess_project.board import c_board
 
 class Game:
     def __init__(self):
+        self.game_over = False
         self.white_turn = True
         self.white_king_coordinates = []
         self.black_king_coordinates = []
         self.counter = 0
+        self.board_state = {}
+
+    def add_board_state_to_dictionary(self):
+        board_str = ""
+        if self.white_turn:
+            board_str += "W"
+        else:
+            board_str += "B"
+
+        for r in range(8):
+            for c in range(8):
+                board_str += str(c_board.board[r][c])
+
+        if board_str not in self.board_state:
+            self.board_state[board_str] = 0
+        self.board_state[board_str] += 1
+
+    def check_for_threefold_repetition_draw(self):
+        for key, value in self.board_state.items():
+            if value == 3:
+                print("Draw by threefold repetition!")
+                self.game_over = True
 
     @staticmethod
     def check_count_of_pieces_on_board():
-        count_pieces = 0
         count_pieces = len(ChessPiece.find_all_white_pieces()) + len(ChessPiece.find_all_black_pieces())
-
         return count_pieces
 
     @staticmethod
@@ -92,6 +113,9 @@ class Game:
                 if count_pieces != Game.check_count_of_pieces_on_board():
                     self.counter = 0
 
+                self.add_board_state_to_dictionary()
+                self.check_for_threefold_repetition_draw()
+
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_white_enpassant = ()
                 self.counter += 1
@@ -99,18 +123,26 @@ class Game:
             black_king_row, black_king_col = self.black_king_coordinates
             if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
                 if ChessPiece.check_black_checkmate(black_king_row, black_king_col):
+                    print()
                     print("Checkmate! White wins!")
+                    self.game_over = True
                 else:
                     print("Black is in check!")
 
             if ChessPiece.check_black_stalemate():
+                print()
                 print("Stalemate! Black has no legal moves!")
+                self.game_over = True
 
             if ChessPiece.check_insufficient_material():
+                print()
                 print("Draw by insufficient material!")
+                self.game_over = True
 
             if self.counter == 100:
+                print()
                 print("Draw by 50 move rule!")
+                self.game_over = True
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             old_board = copy.deepcopy(c_board.board)
@@ -140,6 +172,9 @@ class Game:
                 if count_pieces != Game.check_count_of_pieces_on_board():
                     self.counter = 0
 
+                self.add_board_state_to_dictionary()
+                self.check_for_threefold_repetition_draw()
+
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_black_enpassant = ()
                 self.counter += 1
@@ -147,18 +182,26 @@ class Game:
             white_king_row, white_king_col = self.white_king_coordinates
             if ChessPiece.check_if_white_in_check(white_king_row, white_king_col):
                 if ChessPiece.check_white_checkmate(white_king_row, white_king_col):
+                    print()
                     print("Checkmate! Black wins!")
+                    self.game_over = True
                 else:
                     print("White is in check!")
 
             if ChessPiece.check_white_stalemate():
+                print()
                 print("Stalemate! White has no legal moves!")
+                self.game_over = True
 
             if ChessPiece.check_insufficient_material():
+                print()
                 print("Draw by insufficient material!")
+                self.game_over = True
 
             if self.counter == 100:
+                print()
                 print("Draw by 50 move rule!")
+                self.game_over = True
 
         else:
             return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
@@ -197,26 +240,7 @@ for row in range(8):
 
 c_board.print_board()
 
-game1.take_move("f7", "f6")
-c_board.print_board()
-print(game1.counter)
-
-game1.take_move("d2", "e2")
-c_board.print_board()
-print(game1.counter)
-
-game1.take_move("f6", "f7")
-c_board.print_board()
-print(game1.counter)
-
-game1.take_move("e2", "d2")
-c_board.print_board()
-print(game1.counter)
-
-game1.take_move("f7", "f6")
-c_board.print_board()
-print(game1.counter)
-
-game1.take_move("d2", "a2")
-c_board.print_board()
-print(game1.counter)
+while not game1.game_over:
+    game1.take_move(input("Starting square: "), input("End square: "))
+    print()
+    c_board.print_board()

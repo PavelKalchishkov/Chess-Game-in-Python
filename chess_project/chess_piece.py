@@ -133,8 +133,6 @@ class ChessPiece(ABC):
         else:
             return False
 
-
-
     @classmethod
     def get_white_attacked_squares(cls):
         attacked_squares = []
