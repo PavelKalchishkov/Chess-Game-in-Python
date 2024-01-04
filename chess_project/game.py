@@ -90,6 +90,9 @@ class Game:
             if ChessPiece.check_black_stalemate():
                 print("Stalemate! Black has no legal moves!")
 
+            if ChessPiece.check_insufficient_material():
+                print("Draw by insufficient material!")
+
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             old_board = copy.deepcopy(c_board.board)
             if c_board.board[start_row][start_col].move(new_row, new_col):
@@ -125,6 +128,9 @@ class Game:
 
             if ChessPiece.check_white_stalemate():
                 print("Stalemate! White has no legal moves!")
+
+            if ChessPiece.check_insufficient_material():
+                print("Draw by insufficient material!")
 
         else:
             return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
@@ -163,17 +169,11 @@ for row in range(8):
 
 c_board.print_board()
 
-game1.take_move("g8", "h8")
+game1.take_move("g8", "g7")
 c_board.print_board()
 
-game1.take_move("f3", "f7")
+game1.take_move("h1", "h7")
 c_board.print_board()
 
-game1.take_move("h8", "h7")
-c_board.print_board()
-
-game1.take_move("a3", "a4")
-c_board.print_board()
-
-game1.take_move("e1", "e2")
+game1.take_move("g7", "h7")
 c_board.print_board()

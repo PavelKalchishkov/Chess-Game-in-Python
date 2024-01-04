@@ -85,6 +85,56 @@ class ChessPiece(ABC):
 
         return no_valid_moves
 
+    @staticmethod
+    def check_insufficient_material():
+        white_points = 0
+        black_points = 0
+
+        king_value = 1
+        queen_value = 5
+        rook_value = 5
+        pawn_value = 5
+        knight_value = 3
+        bishop_value = 3
+
+        white_pieces = ChessPiece.find_all_white_pieces()
+        black_pieces = ChessPiece.find_all_black_pieces()
+
+        for piece in white_pieces:
+            if str(piece) == "K":
+                white_points += king_value
+            elif str(piece) == "Q":
+                white_points += queen_value
+            elif str(piece) == "R":
+                white_points += rook_value
+            elif str(piece) == "P":
+                white_points += pawn_value
+            elif str(piece) == "N":
+                white_points += knight_value
+            elif str(piece) == "B":
+                white_points += bishop_value
+
+        for piece in black_pieces:
+            if str(piece) == "k":
+                black_points += king_value
+            elif str(piece) == "q":
+                black_points += queen_value
+            elif str(piece) == "r":
+                black_points += rook_value
+            elif str(piece) == "p":
+                black_points += pawn_value
+            elif str(piece) == "n":
+                black_points += knight_value
+            elif str(piece) == "b":
+                black_points += bishop_value
+
+        if white_points < 5 and black_points < 5:
+            return True
+        else:
+            return False
+
+
+
     @classmethod
     def get_white_attacked_squares(cls):
         attacked_squares = []
