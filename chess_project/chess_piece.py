@@ -51,6 +51,40 @@ class ChessPiece(ABC):
 
         return black_pieces
 
+    @staticmethod
+    def check_white_stalemate():
+        no_valid_moves = True
+        white_pieces = ChessPiece.find_all_white_pieces()
+
+        for piece in white_pieces:
+            if str(piece) == "K":
+                valid_moves = ChessPiece.check_white_king_valid_moves(piece.row, piece.column)
+            else:
+                valid_moves = piece.check_valid_moves()
+
+            if valid_moves:
+                no_valid_moves = False
+                break
+
+        return no_valid_moves
+
+    @staticmethod
+    def check_black_stalemate():
+        no_valid_moves = True
+        black_pieces = ChessPiece.find_all_black_pieces()
+
+        for piece in black_pieces:
+            if str(piece) == "k":
+                valid_moves = ChessPiece.check_black_king_valid_moves(piece.row, piece.column)
+            else:
+                valid_moves = piece.check_valid_moves()
+
+            if valid_moves:
+                no_valid_moves = False
+                break
+
+        return no_valid_moves
+
     @classmethod
     def get_white_attacked_squares(cls):
         attacked_squares = []

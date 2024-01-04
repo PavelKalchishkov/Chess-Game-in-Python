@@ -73,7 +73,7 @@ class Game:
                     if old_piece:
                         c_board.board[new_row][new_col] = old_piece
                     c_board.board = old_board
-                    return print("White king is in check, this move is illegal!")
+                    return print("White king is in check there, this move is illegal!")
 
                 if self.check_if_pawn(new_row, new_col):
                     c_board.board[new_row][new_col].update_pawn_attributes(start_row, start_col, new_row, new_col)
@@ -86,6 +86,9 @@ class Game:
                     print("Checkmate! White wins!")
                 else:
                     print("Black is in check!")
+
+            if ChessPiece.check_black_stalemate():
+                print("Stalemate! Black has no legal moves!")
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             old_board = copy.deepcopy(c_board.board)
@@ -106,7 +109,7 @@ class Game:
                     if old_piece:
                         c_board.board[new_row][new_col] = old_piece
                     c_board.board = old_board
-                    return print("Black king is in check, this move is illegal!")
+                    return print("Black king is in check there, this move is illegal!")
 
                 if self.check_if_pawn(new_row, new_col):
                     c_board.board[new_row][new_col].update_pawn_attributes(start_row, start_col, new_row, new_col)
@@ -119,6 +122,9 @@ class Game:
                     print("Checkmate! Black wins!")
                 else:
                     print("White is in check!")
+
+            if ChessPiece.check_white_stalemate():
+                print("Stalemate! White has no legal moves!")
 
         else:
             return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
@@ -157,12 +163,17 @@ for row in range(8):
 
 c_board.print_board()
 
+game1.take_move("g8", "h8")
+c_board.print_board()
+
+game1.take_move("f3", "f7")
+c_board.print_board()
+
+game1.take_move("h8", "h7")
+c_board.print_board()
+
+game1.take_move("a3", "a4")
+c_board.print_board()
+
 game1.take_move("e1", "e2")
 c_board.print_board()
-
-game1.take_move("e8", "h8")
-c_board.print_board()
-
-
-
-
