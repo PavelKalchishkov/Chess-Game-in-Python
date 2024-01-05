@@ -76,7 +76,7 @@ class Game:
 
             new_row = ChessPiece.row_names[new_position[1]]
             new_col = ChessPiece.column_names[new_position[0]]
-        except KeyError:
+        except (KeyError, IndexError):
             return print("Invalid square!")
 
         if c_board.board[start_row][start_col] == ".":
