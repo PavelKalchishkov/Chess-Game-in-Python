@@ -94,7 +94,7 @@ class Pawn(ChessPiece):
                         self.valid_moves.append((self.row + 1, self.column + 1))
                 if c_board.board[self.row + 1][self.column + 1] == ".":
                     pass
-                elif c_board.board[self.row + 1][self.column + 1].color == "black":
+                elif c_board.board[self.row + 1][self.column + 1].color == "white":
                     self.valid_moves.append((self.row + 1, self.column + 1))
 
             if self.check_range(self.row + 1, self.column - 1):
@@ -103,7 +103,7 @@ class Pawn(ChessPiece):
                         self.valid_moves.append((self.row + 1, self.column - 1))
                 if c_board.board[self.row + 1][self.column - 1] == ".":
                     pass
-                elif c_board.board[self.row + 1][self.column - 1].color == "black":
+                elif c_board.board[self.row + 1][self.column - 1].color == "white":
                     self.valid_moves.append((self.row + 1, self.column - 1))
 
         return self.valid_moves
