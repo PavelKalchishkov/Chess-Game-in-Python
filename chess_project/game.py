@@ -241,9 +241,8 @@ for row in range(8):
             c_board.board[row][col] = King(row, col, "white")
             game1.white_king_coordinates = [row, col]
 
-c_board.print_board()
-
-while not game1.game_over:
-    game1.take_move(input("Starting square: "), input("End square: "))
-    print()
-    c_board.print_board()
+# c_board.print_board()
+# while not game1.game_over:
+#     game1.take_move(input("Starting square: "), input("End square: "))
+#     print()
+#     c_board.print_board()
