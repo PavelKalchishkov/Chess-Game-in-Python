@@ -1,44 +1,55 @@
-from tkinter import *
+import customtkinter
+
+# set the appearance
+customtkinter.set_appearance_mode("dark")
+customtkinter.set_default_color_theme("dark-blue")
 
 # creating the window
-root = Tk()
+root = customtkinter.CTk()
 root.geometry("900x600")
 root.title("Chess game")
-root.config(background="#152238")
 
 # start game button
-button1 = Button(
+button1 = customtkinter.CTkButton(
     root,
     text="Play",
-    width=15,
-    font=("Cosmic Sans", 20)
+    corner_radius=8,
+    height=45,
+    width=250,
+    font=("Cosmic Sans", 23)
 )
 button1.place(x=320, y=100)
 
 # change figures button
-button2 = Button(
+button2 = customtkinter.CTkButton(
     root,
     text="Figures",
-    width=15,
-    font=("Cosmic Sans", 20)
+    corner_radius=8,
+    height=45,
+    width=250,
+    font=("Cosmic Sans", 23)
 )
 button2.place(x=320, y=200)
 
 # change board button
-button3 = Button(
+button3 = customtkinter.CTkButton(
     root,
     text="Board",
-    width=15,
-    font=("Cosmic Sans", 20)
+    corner_radius=8,
+    height=45,
+    width=250,
+    font=("Cosmic Sans", 23)
 )
 button3.place(x=320, y=300)
 
 # exit button
-button4 = Button(
+button4 = customtkinter.CTkButton(
     root,
     text="Exit",
-    width=15,
-    font=("Cosmic Sans", 20)
+    corner_radius=8,
+    height=45,
+    width=250,
+    font=("Aerial", 23)
 )
 button4.place(x=320, y=400)
 
