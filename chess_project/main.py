@@ -13,6 +13,7 @@ root.geometry(f"{width}x{height}")
 root.title("Chess game")
 
 
+# creating the frames
 frame_menu = customtkinter.CTkFrame(master=root,
                                     width=width,
                                     height=height
@@ -35,21 +36,6 @@ frame_board.grid(row=0, column=0)
 # functions for the buttons
 def play():
     print("Play")
-
-
-def change_board():
-    frame_board.tkraise()
-
-    button5_figures = customtkinter.CTkButton(
-        frame_board,
-        text="Back to menu",
-        corner_radius=8,
-        height=45,
-        width=200,
-        font=("Cosmic Sans", 23),
-        command=create_menu_frame
-    )
-    button5_figures.place(x=20, y=20)
 
 
 # start game button
@@ -87,7 +73,7 @@ def create_menu_frame():
         height=45,
         width=250,
         font=("Cosmic Sans", 23),
-        command=change_board
+        command=create_board_frame
     )
     button3_menu.place(x=320, y=300)
 
@@ -104,10 +90,11 @@ def create_menu_frame():
     button4_menu.place(x=320, y=400)
 
 
+# figure frame
 def create_figures_frame():
     frame_figures.tkraise()
 
-    button5_figures = customtkinter.CTkButton(
+    button1_figures = customtkinter.CTkButton(
         frame_figures,
         text="Back to menu",
         corner_radius=8,
@@ -116,7 +103,23 @@ def create_figures_frame():
         font=("Cosmic Sans", 23),
         command=create_menu_frame
     )
-    button5_figures.place(x=20, y=20)
+    button1_figures.place(x=20, y=20)
+
+
+# board frame
+def create_board_frame():
+    frame_board.tkraise()
+
+    button1_board = customtkinter.CTkButton(
+        frame_board,
+        text="Back to menu",
+        corner_radius=8,
+        height=45,
+        width=200,
+        font=("Cosmic Sans", 23),
+        command=create_menu_frame
+    )
+    button1_board.place(x=20, y=20)
 
 
 create_menu_frame()
