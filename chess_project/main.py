@@ -1,9 +1,9 @@
 import customtkinter
+from PIL import Image
 
 # set the appearance
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
-
 
 # creating the window
 width = 900
@@ -11,7 +11,6 @@ height = 600
 root = customtkinter.CTk()
 root.geometry(f"{width}x{height}")
 root.title("Chess game")
-
 
 # creating the frames
 frame_menu = customtkinter.CTkFrame(master=root,
@@ -108,8 +107,10 @@ def create_figures_frame():
 
 # board frame
 def create_board_frame():
+    # making the main window
     frame_board.tkraise()
 
+    # making 'the go back to menu' button
     button1_board = customtkinter.CTkButton(
         frame_board,
         text="Back to menu",
@@ -120,6 +121,27 @@ def create_board_frame():
         command=create_menu_frame
     )
     button1_board.place(x=20, y=20)
+
+    # adding the first image
+    image_one = customtkinter.CTkImage(light_image=Image.open("board_images/board_one_icon.png"),
+                                       dark_image=Image.open("board_images/board_one_icon.png"),
+                                       size=(90, 90))
+    label_three = customtkinter.CTkLabel(root, text="", image=image_one)
+    label_three.place(x=210, y=250)
+
+    # adding the second image
+    image_two = customtkinter.CTkImage(light_image=Image.open("board_images/board_two_icon.png"),
+                                       dark_image=Image.open("board_images/board_two_icon.png"),
+                                       size=(90, 90))
+    label_two = customtkinter.CTkLabel(root, text="", image=image_two)
+    label_two.place(x=420, y=250)
+
+    # adding the third image
+    image_three = customtkinter.CTkImage(light_image=Image.open("board_images/board_three_icon.png"),
+                                         dark_image=Image.open("board_images/board_three_icon.png"),
+                                         size=(90, 90))
+    label_three = customtkinter.CTkLabel(root, text="", image=image_three)
+    label_three.place(x=630, y=250)
 
 
 create_menu_frame()
