@@ -139,7 +139,6 @@ def create_board_frame():
         check_box_board_one.configure(state="normal")
         check_box_board_two.configure(state="normal")
 
-
     # making the main window
     frame_board.tkraise()
 
@@ -190,7 +189,8 @@ def create_board_frame():
                                                     onvalue=1,
                                                     offvalue=0,
                                                     corner_radius=40,
-                                                    command=change_board_to_one
+                                                    command=change_board_to_one,
+                                                    state="disable"
                                                     )
     check_box_board_one.place(x=243, y=355)
 
