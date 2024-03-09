@@ -1,3 +1,4 @@
+import tkinter
 import customtkinter
 from PIL import Image
 
@@ -11,6 +12,15 @@ height = 600
 root = customtkinter.CTk()
 root.geometry(f"{width}x{height}")
 root.title("Chess game")
+
+# declaring the checkbox variables
+check_box_one_variable = tkinter.IntVar()
+check_box_one_variable.set(1)
+check_box_two_variable = tkinter.IntVar()
+check_box_two_variable.set(0)
+check_box_three_variable = tkinter.IntVar()
+check_box_three_variable.set(0)
+
 
 # creating the frames
 frame_menu = customtkinter.CTkFrame(master=root,
@@ -107,10 +117,39 @@ def create_figures_frame():
 
 # board frame
 def create_board_frame():
+    # function for changing the board
+    def change_board_to_one():
+        check_box_two_variable.set(0)
+        check_box_three_variable.set(0)
+        check_box_board_one.configure(state="disable")
+        check_box_board_two.configure(state="normal")
+        check_box_board_three.configure(state="normal")
+
+    def change_board_to_two():
+        check_box_one_variable.set(0)
+        check_box_three_variable.set(0)
+        check_box_board_two.configure(state="disable")
+        check_box_board_one.configure(state="normal")
+        check_box_board_three.configure(state="normal")
+
+    def change_board_to_three():
+        check_box_one_variable.set(0)
+        check_box_two_variable.set(0)
+        check_box_board_three.configure(state="disable")
+        check_box_board_one.configure(state="normal")
+        check_box_board_two.configure(state="normal")
+
+
     # making the main window
     frame_board.tkraise()
 
-    # making 'the go back to menu' button
+    # making the label/heading
+    label_heading = customtkinter.CTkLabel(frame_board,
+                                           text="Select a board",
+                                           font=("Cosmic Sans", 60))
+    label_heading.place(x=260, y=140)
+
+    # making the 'go back to menu' button
     button1_board = customtkinter.CTkButton(
         frame_board,
         text="Back to menu",
@@ -122,26 +161,58 @@ def create_board_frame():
     )
     button1_board.place(x=20, y=20)
 
+    # adding all the images
     # adding the first image
     image_one = customtkinter.CTkImage(light_image=Image.open("board_images/board_one_icon.png"),
                                        dark_image=Image.open("board_images/board_one_icon.png"),
                                        size=(90, 90))
-    label_three = customtkinter.CTkLabel(root, text="", image=image_one)
-    label_three.place(x=210, y=250)
+    label_one = customtkinter.CTkLabel(frame_board, text="", image=image_one)
+    label_one.place(x=210, y=250)
 
     # adding the second image
     image_two = customtkinter.CTkImage(light_image=Image.open("board_images/board_two_icon.png"),
                                        dark_image=Image.open("board_images/board_two_icon.png"),
                                        size=(90, 90))
-    label_two = customtkinter.CTkLabel(root, text="", image=image_two)
+    label_two = customtkinter.CTkLabel(frame_board, text="", image=image_two)
     label_two.place(x=420, y=250)
 
     # adding the third image
     image_three = customtkinter.CTkImage(light_image=Image.open("board_images/board_three_icon.png"),
                                          dark_image=Image.open("board_images/board_three_icon.png"),
                                          size=(90, 90))
-    label_three = customtkinter.CTkLabel(root, text="", image=image_three)
+    label_three = customtkinter.CTkLabel(frame_board, text="", image=image_three)
     label_three.place(x=630, y=250)
+
+    # adding all the checkboxes for the images
+    check_box_board_one = customtkinter.CTkCheckBox(frame_board,
+                                                    text="",
+                                                    variable=check_box_one_variable,
+                                                    onvalue=1,
+                                                    offvalue=0,
+                                                    corner_radius=40,
+                                                    command=change_board_to_one
+                                                    )
+    check_box_board_one.place(x=243, y=355)
+
+    check_box_board_two = customtkinter.CTkCheckBox(frame_board,
+                                                    text="",
+                                                    variable=check_box_two_variable,
+                                                    onvalue=2,
+                                                    offvalue=0,
+                                                    corner_radius=40,
+                                                    command=change_board_to_two
+                                                    )
+    check_box_board_two.place(x=453, y=355)
+
+    check_box_board_three = customtkinter.CTkCheckBox(frame_board,
+                                                      text="",
+                                                      variable=check_box_three_variable,
+                                                      onvalue=3,
+                                                      offvalue=0,
+                                                      corner_radius=40,
+                                                      command=change_board_to_three
+                                                      )
+    check_box_board_three.place(x=663, y=355)
 
 
 create_menu_frame()
