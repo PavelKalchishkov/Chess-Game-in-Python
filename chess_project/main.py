@@ -165,23 +165,23 @@ def create_figures_frame():
 
     # adding all the images
     # adding the first image
-    image_one = customtkinter.CTkImage(light_image=Image.open("board_images/board_one_icon.png"),
-                                       dark_image=Image.open("board_images/board_one_icon.png"),
-                                       size=(90, 90))
+    image_one = customtkinter.CTkImage(light_image=Image.open("set_one_images/black_knight.png"),
+                                       dark_image=Image.open("set_one_images/black_knight.png"),
+                                       size=(80, 80))
     label_one = customtkinter.CTkLabel(frame_figures, text="", image=image_one)
     label_one.place(x=210, y=250)
 
     # adding the second image
-    image_two = customtkinter.CTkImage(light_image=Image.open("board_images/board_two_icon.png"),
-                                       dark_image=Image.open("board_images/board_two_icon.png"),
-                                       size=(90, 90))
+    image_two = customtkinter.CTkImage(light_image=Image.open("set_two_images/black_marble_horse.png"),
+                                       dark_image=Image.open("set_two_images/black_marble_horse.png"),
+                                       size=(80, 80))
     label_two = customtkinter.CTkLabel(frame_figures, text="", image=image_two)
     label_two.place(x=420, y=250)
 
     # adding the third image
-    image_three = customtkinter.CTkImage(light_image=Image.open("board_images/board_three_icon.png"),
-                                         dark_image=Image.open("board_images/board_three_icon.png"),
-                                         size=(90, 90))
+    image_three = customtkinter.CTkImage(light_image=Image.open("set_three_images/black_game_room_horse.png"),
+                                         dark_image=Image.open("set_three_images/black_game_room_horse.png"),
+                                         size=(80, 80))
     label_three = customtkinter.CTkLabel(frame_figures, text="", image=image_three)
     label_three.place(x=630, y=250)
 
