@@ -156,8 +156,55 @@ def play_menu_frame():
     label_play_board_image = customtkinter.CTkLabel(play_menu, text="", image=current_board_image)
     label_play_board_image.place(x=210, y=100)
 
+    # function to calculate square location
+    def on_board_click(event):
+        current_square = ""
+        x, y = event.x, event.y
+
+        # calculate x coordinates
+        if x < 60:
+            current_square += "a"
+        elif 60 < x < 120:
+            current_square += "b"
+        elif 120 < x < 180:
+            current_square += "c"
+        elif 180 < x < 240:
+            current_square += "d"
+        elif 240 < x < 300:
+            current_square += "e"
+        elif 300 < x < 360:
+            current_square += "f"
+        elif 360 < x < 420:
+            current_square += "g"
+        elif 420 < x < 480:
+            current_square += "h"
+
+        # calculate y coordinates
+        if y < 60:
+            current_square += "8"
+        elif 60 < y < 120:
+            current_square += "7"
+        elif 120 < y < 180:
+            current_square += "6"
+        elif 180 < y < 240:
+            current_square += "5"
+        elif 240 < y < 300:
+            current_square += "4"
+        elif 300 < y < 360:
+            current_square += "3"
+        elif 360 < y < 420:
+            current_square += "2"
+        elif 420 < y < 480:
+            current_square += "1"
+
+        print(current_square)
+        return current_square
+
+    # Bind the click event to the label_play_board_image
+    label_play_board_image.bind("<Button-1>", on_board_click)
+
     label_play_white_knight_image = customtkinter.CTkLabel(play_menu, text="", image=current_white_knight_image)
-    label_play_white_knight_image.place(x=310, y=300)
+    label_play_white_knight_image.place(x=100, y=400)
 
 
 # menu frame
