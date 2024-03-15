@@ -1,6 +1,8 @@
 import tkinter
 import customtkinter
 from PIL import Image
+from chess_project.board import c_board
+
 
 # set the appearance
 customtkinter.set_appearance_mode("dark")
@@ -47,6 +49,26 @@ current_black_knight_image = None
 current_black_queen_image = None
 current_black_king_image = None
 
+# variables for the color background on the pieces
+current_first_color = "#8D4D2A"
+current_second_color = "#E0BA97"
+
+piece_images_dict = {
+    'P': current_white_pawn_image,
+    'N': current_white_knight_image,
+    'B': current_white_bishop_image,
+    'R': current_white_rook_image,
+    'Q': current_white_queen_image,
+    'K': current_white_king_image,
+    'p': current_black_pawn_image,
+    'n': current_black_knight_image,
+    'b': current_black_bishop_image,
+    'r': current_black_rook_image,
+    'q': current_black_queen_image,
+    'k': current_black_king_image,
+    ".": None
+}
+
 
 # function for changing the images of the pieces
 def change_pieces(set_number):
@@ -71,17 +93,20 @@ def change_pieces(set_number):
                                                       dark_image=Image.open(f"set_{set_number}_images/white rook.png"),
                                                       size=(60, 60))
 
-    current_white_bishop_image = customtkinter.CTkImage(light_image=Image.open(f"set_{set_number}_images/white bishop.png"),
-                                                        dark_image=Image.open(f"set_{set_number}_images/white bishop.png"),
-                                                        size=(60, 60))
+    current_white_bishop_image = customtkinter.CTkImage(
+        light_image=Image.open(f"set_{set_number}_images/white bishop.png"),
+        dark_image=Image.open(f"set_{set_number}_images/white bishop.png"),
+        size=(60, 60))
 
-    current_white_knight_image = customtkinter.CTkImage(light_image=Image.open(f"set_{set_number}_images/white knight.png"),
-                                                      dark_image=Image.open(f"set_{set_number}_images/white knight.png"),
-                                                      size=(60, 60))
+    current_white_knight_image = customtkinter.CTkImage(
+        light_image=Image.open(f"set_{set_number}_images/white knight.png"),
+        dark_image=Image.open(f"set_{set_number}_images/white knight.png"),
+        size=(60, 60))
 
-    current_white_queen_image = customtkinter.CTkImage(light_image=Image.open(f"set_{set_number}_images/white queen.png"),
-                                                      dark_image=Image.open(f"set_{set_number}_images/white queen.png"),
-                                                      size=(60, 60))
+    current_white_queen_image = customtkinter.CTkImage(
+        light_image=Image.open(f"set_{set_number}_images/white queen.png"),
+        dark_image=Image.open(f"set_{set_number}_images/white queen.png"),
+        size=(60, 60))
 
     current_white_king_image = customtkinter.CTkImage(light_image=Image.open(f"set_{set_number}_images/white king.png"),
                                                       dark_image=Image.open(f"set_{set_number}_images/white king.png"),
@@ -95,13 +120,15 @@ def change_pieces(set_number):
                                                       dark_image=Image.open(f"set_{set_number}_images/black rook.png"),
                                                       size=(60, 60))
 
-    current_black_bishop_image = customtkinter.CTkImage(light_image=Image.open(f"set_{set_number}_images/black bishop.png"),
-                                                      dark_image=Image.open(f"set_{set_number}_images/black bishop.png"),
-                                                      size=(60, 60))
+    current_black_bishop_image = customtkinter.CTkImage(
+        light_image=Image.open(f"set_{set_number}_images/black bishop.png"),
+        dark_image=Image.open(f"set_{set_number}_images/black bishop.png"),
+        size=(60, 60))
 
-    current_black_queen_image = customtkinter.CTkImage(light_image=Image.open(f"set_{set_number}_images/black queen.png"),
-                                                      dark_image=Image.open(f"set_{set_number}_images/black queen.png"),
-                                                      size=(60, 60))
+    current_black_queen_image = customtkinter.CTkImage(
+        light_image=Image.open(f"set_{set_number}_images/black queen.png"),
+        dark_image=Image.open(f"set_{set_number}_images/black queen.png"),
+        size=(60, 60))
 
     current_black_king_image = customtkinter.CTkImage(light_image=Image.open(f"set_{set_number}_images/black king.png"),
                                                       dark_image=Image.open(f"set_{set_number}_images/black king.png"),
@@ -200,11 +227,43 @@ def play_menu_frame():
         print(current_square)
         return current_square
 
+    def draw_pieces_on_board():
+        current_width = 0
+        current_height = 0
+        current_color_counter = 1
+        for row in range(8):
+            for col in range(8):
+                if current_color_counter % 2 != 0:
+                    current_color = current_first_color
+                else:
+                    current_color = current_second_color
+
+                piece = c_board.board[row][col]
+
+                if piece != ".":
+
+                    current_label = customtkinter.CTkLabel(label_play_board_image,
+                                                           text="",
+                                                           # image=piece_images_dict[str(piece)],
+                                                           image=current_white_knight_image,
+                                                           bg_color=current_color)
+                    current_label.place(x=current_width, y=current_height)
+
+                current_color_counter += 1
+                current_width += 60
+
+            current_height += 60
+            current_width = 0
+            current_color_counter -= 1
+
+
     # Bind the click event to the label_play_board_image
     label_play_board_image.bind("<Button-1>", on_board_click)
+    draw_pieces_on_board()
 
-    label_play_white_knight_image = customtkinter.CTkLabel(play_menu, text="", image=current_white_knight_image)
-    label_play_white_knight_image.place(x=100, y=400)
+    # label_play_white_knight_image = customtkinter.CTkLabel(label_play_board_image, text="",
+    #                                                        image=current_white_knight_image, bg_color="#8D4D2A")
+    # label_play_white_knight_image.place(x=0, y=0)
 
 
 # menu frame
@@ -263,6 +322,8 @@ def create_menu_frame():
 def create_figures_frame():
     # functions for the different figures
     def change_figures_to_one():
+        global current_first_color
+        global current_second_color
         change_pieces("one")
 
         check_box_two_variable_figures.set(0)
@@ -271,7 +332,12 @@ def create_figures_frame():
         check_box_figures_two.configure(state="normal")
         check_box_figures_three.configure(state="normal")
 
+        current_first_color = "#8D4D2A"
+        current_second_color = "#E0BA97"
+
     def change_figures_to_two():
+        global current_first_color
+        global current_second_color
         change_pieces("two")
 
         check_box_one_variable_figures.set(0)
@@ -280,7 +346,12 @@ def create_figures_frame():
         check_box_figures_one.configure(state="normal")
         check_box_figures_three.configure(state="normal")
 
+        current_first_color = "#EEEED2"
+        current_second_color = "#769656"
+
     def change_figures_to_three():
+        global current_first_color
+        global current_second_color
         change_pieces("three")
 
         check_box_one_variable_figures.set(0)
@@ -288,6 +359,9 @@ def create_figures_frame():
         check_box_figures_three.configure(state="disable")
         check_box_figures_one.configure(state="normal")
         check_box_figures_two.configure(state="normal")
+
+        current_first_color = "#FFFFFF"
+        current_second_color = "#3B9AD9"
 
     # we set this window to be the main window
     frame_figures.tkraise()
