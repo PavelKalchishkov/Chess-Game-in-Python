@@ -66,7 +66,6 @@ piece_images_dict = {
     'r': current_black_rook_image,
     'q': current_black_queen_image,
     'k': current_black_king_image,
-    ".": None
 }
 
 
@@ -322,8 +321,6 @@ def create_menu_frame():
 def create_figures_frame():
     # functions for the different figures
     def change_figures_to_one():
-        global current_first_color
-        global current_second_color
         change_pieces("one")
 
         check_box_two_variable_figures.set(0)
@@ -332,12 +329,7 @@ def create_figures_frame():
         check_box_figures_two.configure(state="normal")
         check_box_figures_three.configure(state="normal")
 
-        current_first_color = "#8D4D2A"
-        current_second_color = "#E0BA97"
-
     def change_figures_to_two():
-        global current_first_color
-        global current_second_color
         change_pieces("two")
 
         check_box_one_variable_figures.set(0)
@@ -346,12 +338,7 @@ def create_figures_frame():
         check_box_figures_one.configure(state="normal")
         check_box_figures_three.configure(state="normal")
 
-        current_first_color = "#EEEED2"
-        current_second_color = "#769656"
-
     def change_figures_to_three():
-        global current_first_color
-        global current_second_color
         change_pieces("three")
 
         check_box_one_variable_figures.set(0)
@@ -359,9 +346,6 @@ def create_figures_frame():
         check_box_figures_three.configure(state="disable")
         check_box_figures_one.configure(state="normal")
         check_box_figures_two.configure(state="normal")
-
-        current_first_color = "#FFFFFF"
-        current_second_color = "#3B9AD9"
 
     # we set this window to be the main window
     frame_figures.tkraise()
@@ -463,6 +447,8 @@ def create_board_frame():
     # function for changing the board
     def change_board_to_one():
         global current_board_image
+        global current_first_color
+        global current_second_color
         current_board_image = customtkinter.CTkImage(light_image=Image.open("board_images/board_one.png"),
                                                      dark_image=Image.open("board_images/board_one.png"),
                                                      size=(480, 480))
@@ -473,8 +459,13 @@ def create_board_frame():
         check_box_board_two.configure(state="normal")
         check_box_board_three.configure(state="normal")
 
+        current_first_color = "#8D4D2A"
+        current_second_color = "#E0BA97"
+
     def change_board_to_two():
         global current_board_image
+        global current_first_color
+        global current_second_color
         current_board_image = customtkinter.CTkImage(light_image=Image.open("board_images/board_two.png"),
                                                      dark_image=Image.open("board_images/board_two.png"),
                                                      size=(480, 480))
@@ -485,8 +476,13 @@ def create_board_frame():
         check_box_board_one.configure(state="normal")
         check_box_board_three.configure(state="normal")
 
+        current_first_color = "#EEEED2"
+        current_second_color = "#769656"
+
     def change_board_to_three():
         global current_board_image
+        global current_first_color
+        global current_second_color
         current_board_image = customtkinter.CTkImage(light_image=Image.open("board_images/board_three.png"),
                                                      dark_image=Image.open("board_images/board_three.png"),
                                                      size=(480, 480))
@@ -496,6 +492,9 @@ def create_board_frame():
         check_box_board_three.configure(state="disable")
         check_box_board_one.configure(state="normal")
         check_box_board_two.configure(state="normal")
+
+        current_first_color = "#FFFFFF"
+        current_second_color = "#3B9AD9"
 
     # making the main window
     frame_board.tkraise()
