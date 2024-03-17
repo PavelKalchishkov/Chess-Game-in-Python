@@ -53,24 +53,10 @@ current_black_king_image = None
 current_first_color = "#8D4D2A"
 current_second_color = "#E0BA97"
 
-piece_images_dict = {
-    'P': current_white_pawn_image,
-    'N': current_white_knight_image,
-    'B': current_white_bishop_image,
-    'R': current_white_rook_image,
-    'Q': current_white_queen_image,
-    'K': current_white_king_image,
-    'p': current_black_pawn_image,
-    'n': current_black_knight_image,
-    'b': current_black_bishop_image,
-    'r': current_black_rook_image,
-    'q': current_black_queen_image,
-    'k': current_black_king_image,
-}
-
 
 # function for changing the images of the pieces
 def change_pieces(set_number):
+    global piece_images_dict
     global current_white_pawn_image
     global current_white_rook_image
     global current_white_bishop_image
@@ -124,6 +110,11 @@ def change_pieces(set_number):
         dark_image=Image.open(f"set_{set_number}_images/black bishop.png"),
         size=(60, 60))
 
+    current_black_knight_image = customtkinter.CTkImage(
+        light_image=Image.open(f"set_{set_number}_images/black knight.png"),
+        dark_image=Image.open(f"set_{set_number}_images/black knight.png"),
+        size=(60, 60))
+
     current_black_queen_image = customtkinter.CTkImage(
         light_image=Image.open(f"set_{set_number}_images/black queen.png"),
         dark_image=Image.open(f"set_{set_number}_images/black queen.png"),
@@ -133,9 +124,39 @@ def change_pieces(set_number):
                                                       dark_image=Image.open(f"set_{set_number}_images/black king.png"),
                                                       size=(60, 60))
 
+    piece_images_dict = {
+        'P': current_white_pawn_image,
+        'N': current_white_knight_image,
+        'B': current_white_bishop_image,
+        'R': current_white_rook_image,
+        'Q': current_white_queen_image,
+        'K': current_white_king_image,
+        'p': current_black_pawn_image,
+        'n': current_black_knight_image,
+        'b': current_black_bishop_image,
+        'r': current_black_rook_image,
+        'q': current_black_queen_image,
+        'k': current_black_king_image,
+    }
+
 
 # we set the default to be one
 change_pieces("one")
+
+piece_images_dict = {
+    'P': current_white_pawn_image,
+    'N': current_white_knight_image,
+    'B': current_white_bishop_image,
+    'R': current_white_rook_image,
+    'Q': current_white_queen_image,
+    'K': current_white_king_image,
+    'p': current_black_pawn_image,
+    'n': current_black_knight_image,
+    'b': current_black_bishop_image,
+    'r': current_black_rook_image,
+    'q': current_black_queen_image,
+    'k': current_black_king_image,
+}
 
 # creating the frames
 play_menu = customtkinter.CTkFrame(master=root,
@@ -227,6 +248,7 @@ def play_menu_frame():
         return current_square
 
     def draw_pieces_on_board():
+        global piece_images_dict
         current_width = 0
         current_height = 0
         current_color_counter = 1
@@ -240,11 +262,9 @@ def play_menu_frame():
                 piece = c_board.board[row][col]
 
                 if piece != ".":
-
                     current_label = customtkinter.CTkLabel(label_play_board_image,
                                                            text="",
-                                                           # image=piece_images_dict[str(piece)],
-                                                           image=current_white_knight_image,
+                                                           image=piece_images_dict[str(piece)],
                                                            bg_color=current_color)
                     current_label.place(x=current_width, y=current_height)
 
@@ -254,7 +274,6 @@ def play_menu_frame():
             current_height += 60
             current_width = 0
             current_color_counter -= 1
-
 
     # Bind the click event to the label_play_board_image
     label_play_board_image.bind("<Button-1>", on_board_click)
@@ -319,7 +338,9 @@ def create_menu_frame():
 
 # figure frame
 def create_figures_frame():
+    global piece_images_dict
     # functions for the different figures
+
     def change_figures_to_one():
         change_pieces("one")
 
