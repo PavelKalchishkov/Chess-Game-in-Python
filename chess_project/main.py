@@ -2,6 +2,7 @@ import tkinter
 import customtkinter
 from PIL import Image
 from chess_project.board import c_board
+from chess_project.game import game1
 
 
 # set the appearance
@@ -186,6 +187,9 @@ frame_board.grid(row=0, column=0)
 
 # functions for the buttons
 def play_menu_frame():
+    current_piece_position = ''
+    current_board_position = ''
+    piece_labels = []
     play_menu.tkraise()
 
     # button for going back to the menu
@@ -203,11 +207,9 @@ def play_menu_frame():
     label_play_board_image = customtkinter.CTkLabel(play_menu, text="", image=current_board_image)
     label_play_board_image.place(x=210, y=100)
 
-    # function to calculate square location
-    def on_board_click(event):
+    # function that calculates x,y coordinates
+    def calculate_x_y_coordinates(x, y):
         current_square = ""
-        x, y = event.x, event.y
-
         # calculate x coordinates
         if x < 60:
             current_square += "a"
@@ -247,8 +249,42 @@ def play_menu_frame():
         print(current_square)
         return current_square
 
+    def clear_pieces_from_board(p_labels):
+        for label in p_labels:
+            label.destroy()
+        return []
+
+    def on_board_click(event):
+        global current_board_position
+        global current_piece_position
+        x, y = event.x, event.y
+        current_board_position = calculate_x_y_coordinates(x, y)
+
+        if current_piece_position != '':
+            game1.take_move(current_piece_position, current_board_position)
+            current_board_position = ''
+            current_piece_position = ''
+            draw_pieces_on_board()
+        else:
+            current_board_position = ''
+
+    def on_piece_click(event):
+        global current_piece_position
+
+        # Get the absolute position of the board
+        board_x, board_y = label_play_board_image.winfo_rootx(), label_play_board_image.winfo_rooty()
+
+        # Get the absolute position of the click event
+        event_x, event_y = event.x_root, event.y_root
+
+        # Calculate the relative position of the click event on the board
+        relative_x, relative_y = event_x - board_x, event_y - board_y
+        current_piece_position = calculate_x_y_coordinates(relative_x, relative_y)
+
     def draw_pieces_on_board():
         global piece_images_dict
+
+        clear_pieces_from_board(piece_labels)
         current_width = 0
         current_height = 0
         current_color_counter = 1
@@ -267,6 +303,8 @@ def play_menu_frame():
                                                            image=piece_images_dict[str(piece)],
                                                            bg_color=current_color)
                     current_label.place(x=current_width, y=current_height)
+                    current_label.bind("<Button-1>", on_piece_click)
+                    piece_labels.append(current_label)
 
                 current_color_counter += 1
                 current_width += 60
@@ -279,9 +317,9 @@ def play_menu_frame():
     label_play_board_image.bind("<Button-1>", on_board_click)
     draw_pieces_on_board()
 
-    # label_play_white_knight_image = customtkinter.CTkLabel(label_play_board_image, text="",
-    #                                                        image=current_white_knight_image, bg_color="#8D4D2A")
-    # label_play_white_knight_image.place(x=0, y=0)
+    # while not game1.game_over:
+    #     game1.take_move(current_piece_position, current_board_position)
+    #     draw_pieces_on_board()
 
 
 # menu frame
