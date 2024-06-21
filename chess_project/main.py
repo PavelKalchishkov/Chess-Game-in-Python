@@ -245,7 +245,6 @@ def play_menu_frame():
         elif 420 < y < 480:
             current_square += "1"
 
-        print(current_square)
         return current_square
 
     def clear_pieces_from_board(p_labels):
@@ -286,7 +285,6 @@ def play_menu_frame():
             draw_pieces_on_board()
         else:
             piece_click = calculate_x_y_coordinates(relative_x, relative_y)
-
 
     def draw_pieces_on_board():
         global piece_images_dict
