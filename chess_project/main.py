@@ -5,6 +5,8 @@ from chess_project.board import c_board
 from chess_project.game import game1
 
 
+piece_click = ''
+board_click = ''
 # set the appearance
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -185,10 +187,7 @@ frame_board = customtkinter.CTkFrame(master=root,
 frame_board.grid(row=0, column=0)
 
 
-# functions for the buttons
 def play_menu_frame():
-    current_piece_position = ''
-    current_board_position = ''
     piece_labels = []
     play_menu.tkraise()
 
@@ -255,22 +254,22 @@ def play_menu_frame():
         return []
 
     def on_board_click(event):
-        global current_board_position
-        global current_piece_position
+        global board_click
+        global piece_click
         x, y = event.x, event.y
-        current_board_position = calculate_x_y_coordinates(x, y)
+        board_click = calculate_x_y_coordinates(x, y)
 
-        if current_piece_position != '':
-            game1.take_move(current_piece_position, current_board_position)
-            current_board_position = ''
-            current_piece_position = ''
+        if piece_click != '':
+            game1.take_move(piece_click, board_click)
+            board_click = ''
+            piece_click = ''
             draw_pieces_on_board()
         else:
-            current_board_position = ''
+            board_click = ''
 
     def on_piece_click(event):
-        global current_piece_position
-
+        global piece_click
+        global board_click
         # Get the absolute position of the board
         board_x, board_y = label_play_board_image.winfo_rootx(), label_play_board_image.winfo_rooty()
 
@@ -279,7 +278,15 @@ def play_menu_frame():
 
         # Calculate the relative position of the click event on the board
         relative_x, relative_y = event_x - board_x, event_y - board_y
-        current_piece_position = calculate_x_y_coordinates(relative_x, relative_y)
+        if piece_click:
+            first_click = piece_click
+            piece_click = calculate_x_y_coordinates(relative_x, relative_y)
+            game1.take_move(first_click, piece_click)
+            board_click, piece_click, first_click = '', '', ''
+            draw_pieces_on_board()
+        else:
+            piece_click = calculate_x_y_coordinates(relative_x, relative_y)
+
 
     def draw_pieces_on_board():
         global piece_images_dict
@@ -316,10 +323,6 @@ def play_menu_frame():
     # Bind the click event to the label_play_board_image
     label_play_board_image.bind("<Button-1>", on_board_click)
     draw_pieces_on_board()
-
-    # while not game1.game_over:
-    #     game1.take_move(current_piece_position, current_board_position)
-    #     draw_pieces_on_board()
 
 
 # menu frame
