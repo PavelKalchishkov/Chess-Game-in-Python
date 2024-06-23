@@ -260,8 +260,7 @@ def play_menu_frame():
 
         if piece_click != '':
             game1.take_move(piece_click, board_click)
-            board_click = ''
-            piece_click = ''
+            board_click, piece_click = '', ''
             draw_pieces_on_board()
         else:
             board_click = ''

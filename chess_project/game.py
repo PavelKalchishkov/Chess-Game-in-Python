@@ -71,6 +71,10 @@ class Game:
         old_piece = None
         count_pieces = Game.check_count_of_pieces_on_board()
 
+        if self.game_over:
+            print('Game is over.')
+            return 6
+
         try:
             start_row = ChessPiece.row_names[start_position[1]]
             start_col = ChessPiece.column_names[start_position[0]]
@@ -78,10 +82,12 @@ class Game:
             new_row = ChessPiece.row_names[new_position[1]]
             new_col = ChessPiece.column_names[new_position[0]]
         except (KeyError, IndexError):
-            return print("Invalid square!")
+            print("Invalid square!")
+            return 4
 
         if c_board.board[start_row][start_col] == ".":
-            return print("Invalid move - starting square empty!")
+            print("Invalid move - starting square empty!")
+            return 4
 
         if c_board.board[new_row][new_col] != ".":
             old_piece = c_board.board[new_row][new_col]
@@ -105,7 +111,8 @@ class Game:
                     if old_piece:
                         c_board.board[new_row][new_col] = old_piece
                     c_board.board = old_board
-                    return print("White king is in check there, this move is illegal!")
+                    print("White king is in check there, this move is illegal!")
+                    return 4
 
                 if self.check_if_pawn(new_row, new_col):
                     c_board.board[new_row][new_col].update_pawn_attributes(start_row, start_col, new_row, new_col)
@@ -121,30 +128,36 @@ class Game:
                 ChessPiece.possible_white_enpassant = ()
                 self.counter += 1
 
+                print('Successful move')
+                return 1
+
             black_king_row, black_king_col = self.black_king_coordinates
             if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
                 if ChessPiece.check_black_checkmate(black_king_row, black_king_col):
                     self.game_over = True
-                    print()
-                    return print("Checkmate! White wins!")
+                    print("Checkmate! White wins!")
+                    return 2
                 else:
-                    print()
                     print("Black is in check!")
+                    return 5
 
             if ChessPiece.check_black_stalemate():
                 self.game_over = True
-                print()
-                return print("Stalemate! Black has no legal moves!")
+                print("Stalemate! Black has no legal moves!")
+                return 3
 
             if ChessPiece.check_insufficient_material():
                 self.game_over = True
-                print()
-                return print("Draw by insufficient material!")
+                print("Draw by insufficient material!")
+                return 3
 
             if self.counter == 100:
                 self.game_over = True
-                print()
-                return print("Draw by 50 move rule!")
+                print("Draw by 50 move rule!")
+                return 3
+
+            print('Successful move')
+            return 1
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             old_board = copy.deepcopy(c_board.board)
@@ -165,7 +178,8 @@ class Game:
                     if old_piece:
                         c_board.board[new_row][new_col] = old_piece
                     c_board.board = old_board
-                    return print("Black king is in check there, this move is illegal!")
+                    print("Black king is in check there, this move is illegal!")
+                    return 4
 
                 if self.check_if_pawn(new_row, new_col):
                     c_board.board[new_row][new_col].update_pawn_attributes(start_row, start_col, new_row, new_col)
@@ -185,29 +199,33 @@ class Game:
             if ChessPiece.check_if_white_in_check(white_king_row, white_king_col):
                 if ChessPiece.check_white_checkmate(white_king_row, white_king_col):
                     self.game_over = True
-                    print()
-                    return print("Checkmate! Black wins!")
+                    print("Checkmate! Black wins!")
+                    return 7
                 else:
-                    print()
                     print("White is in check!")
+                    return 5
 
             if ChessPiece.check_white_stalemate():
                 self.game_over = True
-                print()
-                return print("Stalemate! White has no legal moves!")
+                print("Stalemate! White has no legal moves!")
+                return 3
 
             if ChessPiece.check_insufficient_material():
                 self.game_over = True
-                print()
-                return print("Draw by insufficient material!")
+                print("Draw by insufficient material!")
+                return 3
 
             if self.counter == 100:
                 self.game_over = True
-                print()
-                return print("Draw by 50 move rule!")
+                print("Draw by 50 move rule!")
+                return 3
+
+            print('Successful move')
+            return 1
 
         else:
-            return print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
+            print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
+            return 4
 
 
 game1 = Game()
