@@ -68,6 +68,7 @@ class Game:
             return False
 
     def take_move(self, start_position, new_position):
+        successful_move = False
         old_piece = None
         count_pieces = Game.check_count_of_pieces_on_board()
 
@@ -128,6 +129,8 @@ class Game:
                 ChessPiece.possible_white_enpassant = ()
                 self.counter += 1
 
+                successful_move = True
+
             black_king_row, black_king_col = self.black_king_coordinates
             if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
                 if ChessPiece.check_black_checkmate(black_king_row, black_king_col):
@@ -153,8 +156,9 @@ class Game:
                 print("Draw by 50 move rule!")
                 return 3
 
-            print('Successful move')
-            return 1
+            if successful_move:
+                print('Successful move')
+                return 1
 
         elif not self.white_turn and c_board.board[start_row][start_col].color == "black":
             old_board = copy.deepcopy(c_board.board)
@@ -192,6 +196,8 @@ class Game:
                 ChessPiece.possible_black_enpassant = ()
                 self.counter += 1
 
+                successful_move = True
+
             white_king_row, white_king_col = self.white_king_coordinates
             if ChessPiece.check_if_white_in_check(white_king_row, white_king_col):
                 if ChessPiece.check_white_checkmate(white_king_row, white_king_col):
@@ -217,8 +223,9 @@ class Game:
                 print("Draw by 50 move rule!")
                 return 3
 
-            print('Successful move')
-            return 1
+            if successful_move:
+                print('Successful move')
+                return 1
 
         else:
             print(f"Invalid move, it's {'white' if self.white_turn else 'black'}'s turn!")
