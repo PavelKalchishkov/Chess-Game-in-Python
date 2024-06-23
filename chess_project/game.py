@@ -128,9 +128,6 @@ class Game:
                 ChessPiece.possible_white_enpassant = ()
                 self.counter += 1
 
-                print('Successful move')
-                return 1
-
             black_king_row, black_king_col = self.black_king_coordinates
             if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
                 if ChessPiece.check_black_checkmate(black_king_row, black_king_col):

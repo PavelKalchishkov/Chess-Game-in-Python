@@ -320,6 +320,8 @@ def play_menu_frame():
     # Bind the click event to the label_play_board_image
     label_play_board_image.bind("<Button-1>", on_board_click)
     draw_pieces_on_board()
+    random_var = piece_labels[2]
+    print(random_var == piece_labels[2])
 
 
 # menu frame
