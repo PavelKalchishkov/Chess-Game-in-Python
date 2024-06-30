@@ -188,7 +188,7 @@ frame_board.grid(row=0, column=0)
 
 
 def play_menu_frame():
-    piece_labels = []
+    piece_labels = {}
     play_menu.tkraise()
 
     # button for going back to the menu
@@ -247,10 +247,23 @@ def play_menu_frame():
 
         return current_square
 
-    def clear_pieces_from_board(p_labels):
-        for label in p_labels:
-            label.destroy()
-        return []
+    def update_pieces_on_board():
+        pieces_to_remove = []
+
+        for piece_label, values in piece_labels.items():
+            row = values[0]
+            col = values[1]
+            piece = values[2]
+            board_piece = c_board.board[row][col]
+
+            if str(board_piece) != piece:
+                piece_label.destroy()
+                pieces_to_remove.append(piece_label)
+
+        for piece in pieces_to_remove:
+            del piece_labels[piece]
+
+        draw_pieces_on_board()
 
     def on_board_click(event):
         global board_click
@@ -261,7 +274,7 @@ def play_menu_frame():
         if piece_click != '':
             game1.take_move(piece_click, board_click)
             board_click, piece_click = '', ''
-            draw_pieces_on_board()
+            update_pieces_on_board()
         else:
             board_click = ''
 
@@ -281,14 +294,13 @@ def play_menu_frame():
             piece_click = calculate_x_y_coordinates(relative_x, relative_y)
             game1.take_move(first_click, piece_click)
             board_click, piece_click, first_click = '', '', ''
-            draw_pieces_on_board()
+            update_pieces_on_board()
         else:
             piece_click = calculate_x_y_coordinates(relative_x, relative_y)
 
     def draw_pieces_on_board():
         global piece_images_dict
 
-        clear_pieces_from_board(piece_labels)
         current_width = 0
         current_height = 0
         current_color_counter = 1
@@ -308,7 +320,7 @@ def play_menu_frame():
                                                            bg_color=current_color)
                     current_label.place(x=current_width, y=current_height)
                     current_label.bind("<Button-1>", on_piece_click)
-                    piece_labels.append(current_label)
+                    piece_labels[current_label] = [row, col, str(piece)]
 
                 current_color_counter += 1
                 current_width += 60
@@ -320,8 +332,6 @@ def play_menu_frame():
     # Bind the click event to the label_play_board_image
     label_play_board_image.bind("<Button-1>", on_board_click)
     draw_pieces_on_board()
-    random_var = piece_labels[2]
-    print(random_var == piece_labels[2])
 
 
 # menu frame
