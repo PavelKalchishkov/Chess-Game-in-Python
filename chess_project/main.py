@@ -332,7 +332,7 @@ def play_menu_frame():
     label_play_board_image.bind("<Button-1>", on_board_click)
     draw_pieces_on_board()
 
-    play_menu.after(50, play_menu.tkraise)
+    play_menu.after(100, play_menu.tkraise)
 
 
 # menu frame
