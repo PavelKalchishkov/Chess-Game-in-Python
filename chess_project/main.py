@@ -189,7 +189,6 @@ frame_board.grid(row=0, column=0)
 
 def play_menu_frame():
     piece_labels = {}
-    play_menu.tkraise()
 
     # button for going back to the menu
     button1_play = customtkinter.CTkButton(
@@ -332,6 +331,8 @@ def play_menu_frame():
     # Bind the click event to the label_play_board_image
     label_play_board_image.bind("<Button-1>", on_board_click)
     draw_pieces_on_board()
+
+    play_menu.after(50, play_menu.tkraise)
 
 
 # menu frame
