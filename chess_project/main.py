@@ -3,6 +3,7 @@ import customtkinter
 from PIL import Image
 from chess_project.board import c_board
 from chess_project.game import game1
+from chess_project.chess_piece import ChessPiece
 
 
 piece_click = ''
@@ -296,6 +297,17 @@ def play_menu_frame():
             update_pieces_on_board()
         else:
             piece_click = calculate_x_y_coordinates(relative_x, relative_y)
+
+            row = int(relative_y / 60)
+            col = int(relative_x / 60)
+            valid_moves = c_board.board[row][col].check_valid_moves()
+            piece_color = c_board.board[row][col].color
+            white_turn = game1.white_turn
+
+            if white_turn and piece_color == 'white':
+                print(valid_moves)
+            elif not white_turn and piece_color == 'black':
+                print(valid_moves)
 
     def draw_pieces_on_board():
         global piece_images_dict
