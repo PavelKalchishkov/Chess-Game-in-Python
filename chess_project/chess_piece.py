@@ -356,7 +356,7 @@ class ChessPiece(ABC):
                     return True
 
     @staticmethod
-    def check_white_castling(curr_row, curr_col, new_row, new_col):
+    def white_castle(curr_row, curr_col, new_row, new_col):
         if curr_row == 7 and curr_col == 4 and new_row == 7 and new_col == 6:
             if c_board.board[7][4] == "." or c_board.board[7][7] == ".":
                 print("Castling not possible in this position!")
@@ -408,7 +408,7 @@ class ChessPiece(ABC):
                 return True
 
     @staticmethod
-    def check_black_castling(curr_row, curr_col, new_row, new_col):
+    def black_castle(curr_row, curr_col, new_row, new_col):
         if curr_row == 0 and curr_col == 4 and new_row == 0 and new_col == 6:
             if c_board.board[0][4] == "." or c_board.board[0][7] == ".":
                 print("Castling not possible in this position!")
@@ -459,6 +459,66 @@ class ChessPiece(ABC):
 
                 return True
 
+    @staticmethod
+    def check_white_castling(curr_row, curr_col, new_row, new_col):
+        if curr_row == 7 and curr_col == 4 and new_row == 7 and new_col == 6:
+            if c_board.board[7][4] == "." or c_board.board[7][7] == ".":
+                return False
+            if ChessPiece.check_if_white_in_check(7, 4):
+                return False
+            elif c_board.board[7][5] != "." or c_board.board[7][6] != ".":
+                return False
+            elif ChessPiece.check_if_white_in_check(7, 5) or ChessPiece.check_if_white_in_check(7, 6):
+                return False
+            elif c_board.board[7][4].has_moved or c_board.board[7][7].has_moved:
+                return False
+            else:
+                return True
+
+        elif curr_row == 7 and curr_col == 4 and new_row == 7 and new_col == 2:
+            if c_board.board[7][4] == "." or c_board.board[7][0] == ".":
+                return False
+            if ChessPiece.check_if_white_in_check(7, 4):
+                return False
+            elif c_board.board[7][3] != "." or c_board.board[7][2] != "." or c_board.board[7][1] != ".":
+                return False
+            elif ChessPiece.check_if_white_in_check(7, 3) or ChessPiece.check_if_white_in_check(7, 2) or ChessPiece.check_if_white_in_check(7, 1):
+                return False
+            elif c_board.board[7][4].has_moved or c_board.board[7][0].has_moved:
+                return False
+            else:
+                return True
+
+    @staticmethod
+    def check_black_castling(curr_row, curr_col, new_row, new_col):
+        if curr_row == 0 and curr_col == 4 and new_row == 0 and new_col == 6:
+            if c_board.board[0][4] == "." or c_board.board[0][7] == ".":
+                return False
+            if ChessPiece.check_if_black_in_check(0, 4):
+                return False
+            elif c_board.board[0][5] != "." or c_board.board[0][6] != ".":
+                return False
+            elif ChessPiece.check_if_black_in_check(0, 5) or ChessPiece.check_if_black_in_check(0, 6):
+                return False
+            elif c_board.board[0][4].has_moved or c_board.board[0][7].has_moved:
+                return False
+            else:
+                return True
+
+        elif curr_row == 0 and curr_col == 4 and new_row == 0 and new_col == 2:
+            if c_board.board[0][4] == "." or c_board.board[0][0] == ".":
+                return False
+            if ChessPiece.check_if_black_in_check(0, 4):
+                return False
+            elif c_board.board[0][3] != "." or c_board.board[0][2] != "." or c_board.board[0][1] != ".":
+                return False
+            elif ChessPiece.check_if_black_in_check(0, 3) or ChessPiece.check_if_black_in_check(0, 2) or ChessPiece.check_if_black_in_check(0, 1):
+                return False
+            elif c_board.board[0][4].has_moved or c_board.board[0][0].has_moved:
+                return False
+            else:
+                return True
+
     def get_coordinates(self):
         return self.row, self.column
 
@@ -483,10 +543,10 @@ class ChessPiece(ABC):
             self.update_coordinates(new_row, new_col)
             return True
 
-        if ChessPiece.check_white_castling(self.row, self.column, new_row, new_col):
+        if ChessPiece.white_castle(self.row, self.column, new_row, new_col):
             return True
 
-        if ChessPiece.check_black_castling(self.row, self.column, new_row, new_col):
+        if ChessPiece.black_castle(self.row, self.column, new_row, new_col):
             return True
 
         else:

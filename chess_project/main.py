@@ -310,10 +310,18 @@ def play_menu_frame():
 
             if white_turn and piece_color == 'white' and str(piece) == 'K':
                 valid_moves = piece.check_white_king_valid_moves(row, col)
+                if piece.check_white_castling(white_king_row, white_king_col, 7, 6):
+                    valid_moves.append((7, 6))
+                if piece.check_white_castling(white_king_row, white_king_col, 7, 2):
+                    valid_moves.append((7, 2))
                 print(valid_moves)
 
             elif not white_turn and piece_color == 'black' and str(piece) == 'k':
                 valid_moves = piece.check_black_king_valid_moves(row, col)
+                if piece.check_black_castling(black_king_row, black_king_col, 0, 6):
+                    valid_moves.append((0, 6))
+                if piece.check_black_castling(black_king_row, black_king_col, 0, 2):
+                    valid_moves.append((0, 2))
                 print(valid_moves)
 
             elif white_turn and piece_color == 'white' and piece.check_if_white_in_check(white_king_row, white_king_col):
