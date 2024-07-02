@@ -274,7 +274,7 @@ def play_menu_frame():
         if piece_click != '':
             game1.take_move(piece_click, board_click)
             board_click, piece_click = '', ''
-            update_pieces_on_board()
+            play_menu.after(60, update_pieces_on_board)
         else:
             board_click = ''
 
@@ -294,18 +294,39 @@ def play_menu_frame():
             piece_click = calculate_x_y_coordinates(relative_x, relative_y)
             game1.take_move(first_click, piece_click)
             board_click, piece_click, first_click = '', '', ''
-            update_pieces_on_board()
+            play_menu.after(60, update_pieces_on_board)
         else:
             piece_click = calculate_x_y_coordinates(relative_x, relative_y)
 
             row = int(relative_y / 60)
             col = int(relative_x / 60)
+
+            piece = c_board.board[row][col]
             valid_moves = c_board.board[row][col].check_valid_moves()
             piece_color = c_board.board[row][col].color
             white_turn = game1.white_turn
+            white_king_row, white_king_col = game1.white_king_coordinates
+            black_king_row, black_king_col = game1.black_king_coordinates
 
-            if white_turn and piece_color == 'white':
+            if white_turn and piece_color == 'white' and str(piece) == 'K':
+                valid_moves = piece.check_white_king_valid_moves(row, col)
                 print(valid_moves)
+
+            elif not white_turn and piece_color == 'black' and str(piece) == 'k':
+                valid_moves = piece.check_black_king_valid_moves(row, col)
+                print(valid_moves)
+
+            elif white_turn and piece_color == 'white' and piece.check_if_white_in_check(white_king_row, white_king_col):
+                valid_moves = piece.get_white_piece_moves_that_stop_check(row, col, white_king_row, white_king_col)
+                print(valid_moves)
+
+            elif not white_turn and piece_color == 'black' and piece.check_if_black_in_check(black_king_row, black_king_col):
+                valid_moves = piece.get_black_piece_moves_that_stop_check(row, col, black_king_row, black_king_col)
+                print(valid_moves)
+
+            elif white_turn and piece_color == 'white':
+                print(valid_moves)
+
             elif not white_turn and piece_color == 'black':
                 print(valid_moves)
 

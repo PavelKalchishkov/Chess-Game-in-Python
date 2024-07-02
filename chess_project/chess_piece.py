@@ -234,6 +234,32 @@ class ChessPiece(ABC):
         return correct_moves
 
     @staticmethod
+    def get_white_piece_moves_that_stop_check(piece_row, piece_col, king_row, king_col):
+        old_board = copy.deepcopy(c_board.board)
+        correct_moves = []
+
+        piece = c_board.board[piece_row][piece_col]
+
+        for move in piece.check_valid_moves():
+            old_piece = None
+            row, col = move
+
+            if c_board.board[row][col] != ".":
+                old_piece = c_board.board[row][col]
+
+            c_board.board[piece_row][piece_col].update_coordinates(row, col)
+
+            if not ChessPiece.check_if_white_in_check(king_row, king_col):
+                correct_moves.append(move)
+
+            c_board.board[row][col].update_coordinates(piece_row, piece_col)
+            if old_piece:
+                c_board.board[row][col] = old_piece
+            c_board.board = old_board
+
+        return correct_moves
+
+    @staticmethod
     def check_white_checkmate(king_row, king_col):
         if ChessPiece.check_if_white_in_check(king_row, king_col):
             if not ChessPiece.check_white_king_valid_moves(king_row, king_col):
@@ -293,6 +319,32 @@ class ChessPiece(ABC):
                     if old_piece:
                         c_board.board[row][col] = old_piece
                     c_board.board = old_board
+
+        return correct_moves
+
+    @staticmethod
+    def get_black_piece_moves_that_stop_check(piece_row, piece_col, king_row, king_col):
+        old_board = copy.deepcopy(c_board.board)
+        correct_moves = []
+
+        piece = c_board.board[piece_row][piece_col]
+
+        for move in piece.check_valid_moves():
+            old_piece = None
+            row, col = move
+
+            if c_board.board[row][col] != ".":
+                old_piece = c_board.board[row][col]
+
+            c_board.board[piece_row][piece_col].update_coordinates(row, col)
+
+            if not ChessPiece.check_if_black_in_check(king_row, king_col):
+                correct_moves.append(move)
+
+            c_board.board[row][col].update_coordinates(piece_row, piece_col)
+            if old_piece:
+                c_board.board[row][col] = old_piece
+            c_board.board = old_board
 
         return correct_moves
 
