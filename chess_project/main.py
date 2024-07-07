@@ -333,9 +333,11 @@ def play_menu_frame():
                 print(valid_moves)
 
             elif white_turn and piece_color == 'white':
+                valid_moves = piece.check_if_white_king_in_check_after_piece_move(piece, white_king_row, white_king_col, valid_moves)
                 print(valid_moves)
 
             elif not white_turn and piece_color == 'black':
+                valid_moves = piece.check_if_black_king_in_check_after_piece_move(piece, black_king_row, black_king_col, valid_moves)
                 print(valid_moves)
 
     def draw_pieces_on_board():

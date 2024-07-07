@@ -519,6 +519,70 @@ class ChessPiece(ABC):
             else:
                 return True
 
+    @staticmethod
+    def check_if_white_king_in_check_after_piece_move(piece, king_row, king_col, possible_moves):
+        valid_moves = []
+
+        if not possible_moves:
+            return []
+
+        for move in possible_moves:
+            old_piece = None
+            new_row = move[0]
+            new_col = move[1]
+            old_row = piece.row
+            old_col = piece.column
+
+            if c_board.board[new_row][new_col] != ".":
+                old_piece = c_board.board[new_row][new_col]
+            old_board = copy.deepcopy(c_board.board)
+
+            if piece.move(new_row, new_col):
+                if not ChessPiece.check_if_white_in_check(king_row, king_col):
+                    valid_moves.append((new_row, new_col))
+
+                c_board.board[new_row][new_col].update_coordinates(old_row, old_col)
+                if old_piece:
+                    c_board.board[new_row][new_col] = old_piece
+                c_board.board = old_board
+
+                if str(piece) == "P":
+                    piece.squares_traveled = 0
+
+        return valid_moves
+
+    @staticmethod
+    def check_if_black_king_in_check_after_piece_move(piece, king_row, king_col, possible_moves):
+        valid_moves = []
+
+        if not possible_moves:
+            return []
+
+        for move in possible_moves:
+            old_piece = None
+            new_row = move[0]
+            new_col = move[1]
+            old_row = piece.row
+            old_col = piece.column
+
+            if c_board.board[new_row][new_col] != ".":
+                old_piece = c_board.board[new_row][new_col]
+            old_board = copy.deepcopy(c_board.board)
+
+            if piece.move(new_row, new_col):
+                if not ChessPiece.check_if_black_in_check(king_row, king_col):
+                    valid_moves.append((new_row, new_col))
+
+                c_board.board[new_row][new_col].update_coordinates(old_row, old_col)
+                if old_piece:
+                    c_board.board[new_row][new_col] = old_piece
+                c_board.board = old_board
+
+                if str(piece) == "p":
+                    piece.squares_traveled = 0
+
+        return valid_moves
+
     def get_coordinates(self):
         return self.row, self.column
 
