@@ -5,7 +5,6 @@ from chess_project.board import c_board
 from chess_project.game import game1
 from chess_project.chess_piece import ChessPiece
 
-
 piece_click = ''
 board_click = ''
 # set the appearance
@@ -38,6 +37,10 @@ check_box_three_variable_figures.set(0)
 current_board_image = customtkinter.CTkImage(light_image=Image.open("board_images/board_one.png"),
                                              dark_image=Image.open("board_images/board_one.png"),
                                              size=(480, 480))
+
+dot_image = customtkinter.CTkImage(light_image=Image.open("board_images/grey_square.png"),
+                                   dark_image=Image.open("board_images/grey_square.png"),
+                                   size=(10, 10))
 
 # creating variable for the piece images
 current_white_pawn_image = None
@@ -190,6 +193,7 @@ frame_board.grid(row=0, column=0)
 
 def play_menu_frame():
     piece_labels = {}
+    dots = []
 
     # button for going back to the menu
     button1_play = customtkinter.CTkButton(
@@ -247,6 +251,44 @@ def play_menu_frame():
 
         return current_square
 
+    def draw_dots_on_board(coordinates_to_draw):
+        for coordinates in coordinates_to_draw:
+            row = coordinates[0]
+            col = coordinates[1]
+
+            current_width = row * 60 + 25
+            current_height = col * 60 + 26
+
+            current_dot = customtkinter.CTkLabel(label_play_board_image,
+                                                 text="",
+                                                 image=dot_image,
+                                                 height=10,
+                                                 width=10)
+            current_dot.place(y=current_width, x=current_height)
+            dots.append(current_dot)
+            current_dot.bind("<Button-1>", on_dot_click)
+
+    def destroy_dots(dots_list):
+        for label in dots_list:
+            label.destroy()
+
+    def on_dot_click(event):
+        global board_click
+        global piece_click
+        board_x, board_y = label_play_board_image.winfo_rootx(), label_play_board_image.winfo_rooty()
+        # Get the absolute position of the click event
+        event_x, event_y = event.x_root, event.y_root
+        # Calculate the relative position of the click event on the board
+        relative_x, relative_y = event_x - board_x, event_y - board_y
+
+        board_click = calculate_x_y_coordinates(relative_x, relative_y)
+        if piece_click != '':
+            game1.take_move(piece_click, board_click)
+            board_click, piece_click = '', ''
+            play_menu.after(60, update_pieces_on_board)
+        else:
+            board_click = ''
+
     def update_pieces_on_board():
         pieces_to_remove = []
 
@@ -262,6 +304,8 @@ def play_menu_frame():
 
         for piece in pieces_to_remove:
             del piece_labels[piece]
+
+        destroy_dots(dots)
 
         draw_pieces_on_board()
 
@@ -314,7 +358,7 @@ def play_menu_frame():
                     valid_moves.append((7, 6))
                 if piece.check_white_castling(white_king_row, white_king_col, 7, 2):
                     valid_moves.append((7, 2))
-                print(valid_moves)
+                draw_dots_on_board(valid_moves)
 
             elif not white_turn and piece_color == 'black' and str(piece) == 'k':
                 valid_moves = piece.check_black_king_valid_moves(row, col)
@@ -322,23 +366,27 @@ def play_menu_frame():
                     valid_moves.append((0, 6))
                 if piece.check_black_castling(black_king_row, black_king_col, 0, 2):
                     valid_moves.append((0, 2))
-                print(valid_moves)
+                draw_dots_on_board(valid_moves)
 
-            elif white_turn and piece_color == 'white' and piece.check_if_white_in_check(white_king_row, white_king_col):
+            elif white_turn and piece_color == 'white' and piece.check_if_white_in_check(white_king_row,
+                                                                                         white_king_col):
                 valid_moves = piece.get_white_piece_moves_that_stop_check(row, col, white_king_row, white_king_col)
-                print(valid_moves)
+                draw_dots_on_board(valid_moves)
 
-            elif not white_turn and piece_color == 'black' and piece.check_if_black_in_check(black_king_row, black_king_col):
+            elif not white_turn and piece_color == 'black' and piece.check_if_black_in_check(black_king_row,
+                                                                                             black_king_col):
                 valid_moves = piece.get_black_piece_moves_that_stop_check(row, col, black_king_row, black_king_col)
-                print(valid_moves)
+                draw_dots_on_board(valid_moves)
 
             elif white_turn and piece_color == 'white':
-                valid_moves = piece.check_if_white_king_in_check_after_piece_move(piece, white_king_row, white_king_col, valid_moves)
-                print(valid_moves)
+                valid_moves = piece.check_if_white_king_in_check_after_piece_move(piece, white_king_row, white_king_col,
+                                                                                  valid_moves)
+                draw_dots_on_board(valid_moves)
 
             elif not white_turn and piece_color == 'black':
-                valid_moves = piece.check_if_black_king_in_check_after_piece_move(piece, black_king_row, black_king_col, valid_moves)
-                print(valid_moves)
+                valid_moves = piece.check_if_black_king_in_check_after_piece_move(piece, black_king_row, black_king_col,
+                                                                                  valid_moves)
+                draw_dots_on_board(valid_moves)
 
     def draw_pieces_on_board():
         global piece_images_dict
@@ -433,6 +481,7 @@ def create_menu_frame():
 # figure frame
 def create_figures_frame():
     global piece_images_dict
+
     # functions for the different figures
 
     def change_figures_to_one():
