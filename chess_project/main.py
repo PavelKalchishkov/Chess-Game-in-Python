@@ -38,8 +38,8 @@ current_board_image = customtkinter.CTkImage(light_image=Image.open("board_image
                                              dark_image=Image.open("board_images/board_one.png"),
                                              size=(480, 480))
 
-dot_image = customtkinter.CTkImage(light_image=Image.open("board_images/grey_square.png"),
-                                   dark_image=Image.open("board_images/grey_square.png"),
+dot_image = customtkinter.CTkImage(light_image=Image.open("board_images/red_square.png"),
+                                   dark_image=Image.open("board_images/red_square.png"),
                                    size=(10, 10))
 
 # creating variable for the piece images
