@@ -336,9 +336,13 @@ def play_menu_frame():
         if piece_click:
             first_click = piece_click
             piece_click = calculate_x_y_coordinates(relative_x, relative_y)
-            game1.take_move(first_click, piece_click)
-            board_click, piece_click, first_click = '', '', ''
-            play_menu.after(60, update_pieces_on_board)
+            if first_click == piece_click:
+                board_click, piece_click, first_click = '', '', ''
+                play_menu.after(60, update_pieces_on_board)
+            else:
+                game1.take_move(first_click, piece_click)
+                board_click, piece_click, first_click = '', '', ''
+                play_menu.after(60, update_pieces_on_board)
         else:
             piece_click = calculate_x_y_coordinates(relative_x, relative_y)
 
@@ -351,6 +355,7 @@ def play_menu_frame():
             white_turn = game1.white_turn
             white_king_row, white_king_col = game1.white_king_coordinates
             black_king_row, black_king_col = game1.black_king_coordinates
+            print(valid_moves)
 
             if white_turn and piece_color == 'black' or not white_turn and piece_color == 'white':
                 piece_click = ''
@@ -384,12 +389,18 @@ def play_menu_frame():
             elif white_turn and piece_color == 'white':
                 valid_moves = piece.check_if_white_king_in_check_after_piece_move(piece, white_king_row, white_king_col,
                                                                                   valid_moves)
-                draw_dots_on_board(valid_moves)
+                if not valid_moves:
+                    piece_click = ''
+                else:
+                    draw_dots_on_board(valid_moves)
 
             elif not white_turn and piece_color == 'black':
                 valid_moves = piece.check_if_black_king_in_check_after_piece_move(piece, black_king_row, black_king_col,
                                                                                   valid_moves)
-                draw_dots_on_board(valid_moves)
+                if not valid_moves:
+                    piece_click = ''
+                else:
+                    draw_dots_on_board(valid_moves)
 
     def draw_pieces_on_board():
         global piece_images_dict
