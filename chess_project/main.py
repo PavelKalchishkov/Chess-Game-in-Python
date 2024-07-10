@@ -352,7 +352,10 @@ def play_menu_frame():
             white_king_row, white_king_col = game1.white_king_coordinates
             black_king_row, black_king_col = game1.black_king_coordinates
 
-            if white_turn and piece_color == 'white' and str(piece) == 'K':
+            if white_turn and piece_color == 'black' or not white_turn and piece_color == 'white':
+                piece_click = ''
+
+            elif white_turn and piece_color == 'white' and str(piece) == 'K':
                 valid_moves = piece.check_white_king_valid_moves(row, col)
                 if piece.check_white_castling(white_king_row, white_king_col, 7, 6):
                     valid_moves.append((7, 6))
