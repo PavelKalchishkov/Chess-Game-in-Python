@@ -355,7 +355,6 @@ def play_menu_frame():
             white_turn = game1.white_turn
             white_king_row, white_king_col = game1.white_king_coordinates
             black_king_row, black_king_col = game1.black_king_coordinates
-            print(valid_moves)
 
             if white_turn and piece_color == 'black' or not white_turn and piece_color == 'white':
                 piece_click = ''
