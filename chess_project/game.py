@@ -131,6 +131,9 @@ class Game:
 
                 successful_move = True
 
+            else:
+                return 4
+
             black_king_row, black_king_col = self.black_king_coordinates
             if ChessPiece.check_if_black_in_check(black_king_row, black_king_col):
                 if ChessPiece.check_black_checkmate(black_king_row, black_king_col):
@@ -198,6 +201,9 @@ class Game:
 
                 successful_move = True
 
+            else:
+                return 4
+
             white_king_row, white_king_col = self.white_king_coordinates
             if ChessPiece.check_if_white_in_check(white_king_row, white_king_col):
                 if ChessPiece.check_white_checkmate(white_king_row, white_king_col):
@@ -206,7 +212,7 @@ class Game:
                     return 7
                 else:
                     print("White is in check!")
-                    return 5
+                    return 8
 
             if ChessPiece.check_white_stalemate():
                 self.game_over = True

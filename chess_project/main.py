@@ -208,7 +208,64 @@ def play_menu_frame():
     button1_play.place(x=20, y=20)
 
     label_play_board_image = customtkinter.CTkLabel(play_menu, text="", image=current_board_image)
-    label_play_board_image.place(x=210, y=100)
+    label_play_board_image.place(x=90, y=100)
+
+    text_chat = customtkinter.CTkTextbox(play_menu, state='disabled', height=420, width=200)
+    text_chat.place(x=610, y=100)
+
+    input_box = customtkinter.CTkEntry(play_menu)
+    input_box.place(x=610, y=530)
+
+    def send_message():
+        message = input_box.get()
+        if message:
+            text_chat.configure(state='normal')
+            text_chat.insert(tkinter.END, f'Player: {message}\n')
+            text_chat.configure(state='disabled')
+            text_chat.yview(tkinter.END)
+            input_box.delete(0, tkinter.END)
+
+    send_button = customtkinter.CTkButton(play_menu, height=27, width=50, text="Send", command=send_message)
+    send_button.place(x=760, y=530)
+
+    def check_game_messages(result):
+        if result == 1:
+            pass
+        elif result == 2:
+            text_chat.configure(state='normal')
+            text_chat.insert(tkinter.END, 'Game: Checkmate, White wins!\n')
+            text_chat.configure(state='disabled')
+            text_chat.yview(tkinter.END)
+        elif result == 7:
+            text_chat.configure(state='normal')
+            text_chat.insert(tkinter.END, 'Game: Checkmate, Black wins!\n')
+            text_chat.configure(state='disabled')
+            text_chat.yview(tkinter.END)
+        elif result == 3:
+            text_chat.configure(state='normal')
+            text_chat.insert(tkinter.END, 'Game: Draw!\n')
+            text_chat.configure(state='disabled')
+            text_chat.yview(tkinter.END)
+        elif result == 4:
+            text_chat.configure(state='normal')
+            text_chat.insert(tkinter.END, 'Game: This move is not legal!\n')
+            text_chat.configure(state='disabled')
+            text_chat.yview(tkinter.END)
+        elif result == 5:
+            text_chat.configure(state='normal')
+            text_chat.insert(tkinter.END, 'Game: Black is in check!\n')
+            text_chat.configure(state='disabled')
+            text_chat.yview(tkinter.END)
+        elif result == 6:
+            text_chat.configure(state='normal')
+            text_chat.insert(tkinter.END, 'Game: Game is over...\n')
+            text_chat.configure(state='disabled')
+            text_chat.yview(tkinter.END)
+        elif result == 8:
+            text_chat.configure(state='normal')
+            text_chat.insert(tkinter.END, 'Game: White is in check!\n')
+            text_chat.configure(state='disabled')
+            text_chat.yview(tkinter.END)
 
     # function that calculates x,y coordinates
     def calculate_x_y_coordinates(x, y):
@@ -283,7 +340,8 @@ def play_menu_frame():
 
         board_click = calculate_x_y_coordinates(relative_x, relative_y)
         if piece_click != '':
-            game1.take_move(piece_click, board_click)
+            game_result = game1.take_move(piece_click, board_click)
+            check_game_messages(game_result)
             board_click, piece_click = '', ''
             play_menu.after(60, update_pieces_on_board)
         else:
@@ -316,7 +374,8 @@ def play_menu_frame():
         board_click = calculate_x_y_coordinates(x, y)
 
         if piece_click != '':
-            game1.take_move(piece_click, board_click)
+            game_result = game1.take_move(piece_click, board_click)
+            check_game_messages(game_result)
             board_click, piece_click = '', ''
             play_menu.after(60, update_pieces_on_board)
         else:
@@ -340,7 +399,8 @@ def play_menu_frame():
                 board_click, piece_click, first_click = '', '', ''
                 play_menu.after(60, update_pieces_on_board)
             else:
-                game1.take_move(first_click, piece_click)
+                game_result = game1.take_move(first_click, piece_click)
+                check_game_messages(game_result)
                 board_click, piece_click, first_click = '', '', ''
                 play_menu.after(60, update_pieces_on_board)
         else:
