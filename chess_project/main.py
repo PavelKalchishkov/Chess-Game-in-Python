@@ -214,7 +214,10 @@ def play_menu_frame():
     label_play_board_image = customtkinter.CTkLabel(play_menu, text="", image=current_board_image)
     label_play_board_image.place(x=90, y=100)
 
-    text_chat = customtkinter.CTkTextbox(play_menu, state='disabled', height=420, width=200)
+    text_chat = customtkinter.CTkTextbox(play_menu, state='normal', height=420, width=200)
+    text_chat.insert(tkinter.END, '      ✦✦✦ Welcome! ✦✦✦\n')
+    text_chat.insert(tkinter.END, '\n')
+    text_chat.configure(state='disabled')
     text_chat.place(x=610, y=100)
 
     input_box = customtkinter.CTkEntry(play_menu)
@@ -386,7 +389,6 @@ def play_menu_frame():
         if piece_click != '':
             game_result = game1.take_move(piece_click, board_click)
             check_game_messages(game_result)
-            print(game_result)
             board_click, piece_click = '', ''
             play_menu.after(60, update_pieces_on_board)
         else:
