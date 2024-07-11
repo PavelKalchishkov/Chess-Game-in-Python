@@ -508,7 +508,7 @@ def play_menu_frame():
 
     if text_chat_text:
         text_chat.configure(state='normal')
-        text_chat.insert(tkinter.END, text_chat_text)
+        text_chat.insert(tkinter.END, f'{text_chat_text.strip()}\n')
         text_chat.configure(state='disabled')
 
     play_menu.after(100, play_menu.tkraise)
