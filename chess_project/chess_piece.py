@@ -358,7 +358,7 @@ class ChessPiece(ABC):
     @staticmethod
     def white_castle(curr_row, curr_col, new_row, new_col):
         if curr_row == 7 and curr_col == 4 and new_row == 7 and new_col == 6:
-            if str(c_board.board[7][6]) != 'R':
+            if str(c_board.board[7][7]) != 'R':
                 return False
             elif c_board.board[7][4] == "." or c_board.board[7][7] == ".":
                 print("Castling not possible in this position!")
@@ -385,7 +385,7 @@ class ChessPiece(ABC):
                 return True
 
         elif curr_row == 7 and curr_col == 4 and new_row == 7 and new_col == 2:
-            if str(c_board.board[7][2]) != 'R':
+            if str(c_board.board[7][0]) != 'R':
                 return False
             elif c_board.board[7][4] == "." or c_board.board[7][0] == ".":
                 print("Castling not possible in this position!")
@@ -414,7 +414,7 @@ class ChessPiece(ABC):
     @staticmethod
     def black_castle(curr_row, curr_col, new_row, new_col):
         if curr_row == 0 and curr_col == 4 and new_row == 0 and new_col == 6:
-            if str(c_board.board[0][6]) != 'r':
+            if str(c_board.board[0][7]) != 'r':
                 return False
             elif c_board.board[0][4] == "." or c_board.board[0][7] == ".":
                 print("Castling not possible in this position!")
@@ -441,7 +441,7 @@ class ChessPiece(ABC):
                 return True
 
         elif curr_row == 0 and curr_col == 4 and new_row == 0 and new_col == 2:
-            if str(c_board.board[0][2]) != 'r':
+            if str(c_board.board[0][0]) != 'r':
                 return False
             elif c_board.board[0][4] == "." or c_board.board[0][0] == ".":
                 print("Castling not possible in this position!")
@@ -470,7 +470,7 @@ class ChessPiece(ABC):
     @staticmethod
     def check_white_castling(curr_row, curr_col, new_row, new_col):
         if curr_row == 7 and curr_col == 4 and new_row == 7 and new_col == 6:
-            if str(c_board.board[7][6]) != 'R':
+            if str(c_board.board[7][7]) != 'R':
                 return False
             elif c_board.board[7][4] == "." or c_board.board[7][7] == ".":
                 return False
@@ -486,7 +486,7 @@ class ChessPiece(ABC):
                 return True
 
         elif curr_row == 7 and curr_col == 4 and new_row == 7 and new_col == 2:
-            if str(c_board.board[7][2]) != 'R':
+            if str(c_board.board[7][0]) != 'R':
                 return False
             elif c_board.board[7][4] == "." or c_board.board[7][0] == ".":
                 return False
@@ -504,7 +504,7 @@ class ChessPiece(ABC):
     @staticmethod
     def check_black_castling(curr_row, curr_col, new_row, new_col):
         if curr_row == 0 and curr_col == 4 and new_row == 0 and new_col == 6:
-            if str(c_board.board[0][6]) != 'r':
+            if str(c_board.board[0][7]) != 'r':
                 return False
             elif c_board.board[0][4] == "." or c_board.board[0][7] == ".":
                 return False
@@ -520,7 +520,7 @@ class ChessPiece(ABC):
                 return True
 
         elif curr_row == 0 and curr_col == 4 and new_row == 0 and new_col == 2:
-            if str(c_board.board[0][2]) != 'r':
+            if str(c_board.board[0][0]) != 'r':
                 return False
             elif c_board.board[0][4] == "." or c_board.board[0][0] == ".":
                 return False

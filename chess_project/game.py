@@ -40,6 +40,7 @@ class Game:
                 print()
                 print("Draw by threefold repetition!")
                 self.game_over = True
+                return True
 
     @staticmethod
     def check_count_of_pieces_on_board():
@@ -123,7 +124,8 @@ class Game:
                     self.counter = 0
 
                 self.add_board_state_to_dictionary()
-                self.check_for_threefold_repetition_draw()
+                if self.check_for_threefold_repetition_draw():
+                    return 3
 
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_white_enpassant = ()
@@ -193,7 +195,8 @@ class Game:
                     self.counter = 0
 
                 self.add_board_state_to_dictionary()
-                self.check_for_threefold_repetition_draw()
+                if self.check_for_threefold_repetition_draw():
+                    return 3
 
                 self.white_turn = not self.white_turn
                 ChessPiece.possible_black_enpassant = ()

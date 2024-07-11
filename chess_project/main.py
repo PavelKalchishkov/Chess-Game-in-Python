@@ -386,6 +386,7 @@ def play_menu_frame():
         if piece_click != '':
             game_result = game1.take_move(piece_click, board_click)
             check_game_messages(game_result)
+            print(game_result)
             board_click, piece_click = '', ''
             play_menu.after(60, update_pieces_on_board)
         else:
