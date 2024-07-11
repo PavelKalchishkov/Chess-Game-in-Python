@@ -61,6 +61,9 @@ current_first_color = "#8D4D2A"
 current_second_color = "#E0BA97"
 
 
+text_chat_text = ""
+
+
 # function for changing the images of the pieces
 def change_pieces(set_number):
     global piece_images_dict
@@ -192,6 +195,7 @@ frame_board.grid(row=0, column=0)
 
 
 def play_menu_frame():
+    global text_chat_text
     piece_labels = {}
     dots = []
 
@@ -217,6 +221,7 @@ def play_menu_frame():
     input_box.place(x=610, y=530)
 
     def send_message():
+        global text_chat_text
         message = input_box.get()
         if message:
             text_chat.configure(state='normal')
@@ -225,10 +230,13 @@ def play_menu_frame():
             text_chat.yview(tkinter.END)
             input_box.delete(0, tkinter.END)
 
+            text_chat_text = text_chat.get("1.0", tkinter.END)
+
     send_button = customtkinter.CTkButton(play_menu, height=27, width=50, text="Send", command=send_message)
     send_button.place(x=760, y=530)
 
     def check_game_messages(result):
+        global text_chat_text
         if result == 1:
             pass
         elif result == 2:
@@ -266,6 +274,8 @@ def play_menu_frame():
             text_chat.insert(tkinter.END, 'Game: White is in check!\n')
             text_chat.configure(state='disabled')
             text_chat.yview(tkinter.END)
+
+        text_chat_text = text_chat.get("1.0", tkinter.END)
 
     # function that calculates x,y coordinates
     def calculate_x_y_coordinates(x, y):
@@ -495,6 +505,11 @@ def play_menu_frame():
     # Bind the click event to the label_play_board_image
     label_play_board_image.bind("<Button-1>", on_board_click)
     draw_pieces_on_board()
+
+    if text_chat_text:
+        text_chat.configure(state='normal')
+        text_chat.insert(tkinter.END, text_chat_text)
+        text_chat.configure(state='disabled')
 
     play_menu.after(100, play_menu.tkraise)
 
