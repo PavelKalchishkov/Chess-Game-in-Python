@@ -214,7 +214,7 @@ def play_menu_frame():
     label_play_board_image = customtkinter.CTkLabel(play_menu, text="", image=current_board_image)
     label_play_board_image.place(x=90, y=100)
 
-    text_chat = customtkinter.CTkTextbox(play_menu, state='disabled', height=420, width=200, font=("Cosmic Sans", 16))
+    text_chat = customtkinter.CTkTextbox(play_menu, state='disabled', height=420, width=235, font=("Cosmic Sans", 16))
     text_chat.place(x=610, y=100)
 
     input_box = customtkinter.CTkEntry(play_menu)
