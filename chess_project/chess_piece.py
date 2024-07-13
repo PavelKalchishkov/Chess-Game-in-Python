@@ -177,6 +177,7 @@ class ChessPiece(ABC):
         else:
             return False
 
+    # here we check the king's valid moves in depth
     @staticmethod
     def check_white_king_valid_moves(king_row, king_col):
         old_board = copy.deepcopy(c_board.board)
@@ -612,6 +613,7 @@ class ChessPiece(ABC):
     def check_valid_moves(self):
         pass
 
+    # this is for each piece to be able to move
     def move(self, new_row, new_col):
         legal_moves = self.check_valid_moves()
 

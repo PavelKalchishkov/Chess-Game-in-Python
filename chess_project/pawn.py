@@ -11,12 +11,14 @@ class Pawn(ChessPiece):
         super().__init__(row, column, color)
         self.squares_traveled = 0
 
+    # representing the pawn as a string
     def __str__(self):
         if self.color == "white":
             return "P"
         elif self.color == "black":
             return "p"
 
+    # we are updating the pawn's row and column, while also checking for en passant and promotion
     def update_pawn_attributes(self, start_row, start_col, new_row, new_col):
         pawn_row_move = new_row - start_row
         pawn_col_move = new_col - start_col
@@ -49,6 +51,8 @@ class Pawn(ChessPiece):
             if self.squares_traveled == 6:
                 c_board.board[self.row][self.column] = Queen(self.row, self.column, self.color)
 
+    # we check the pawn's valid moves by checking if there is a piece to take diagonally, also if the pawn hasn't moved
+    # it can jump two spaces
     def check_valid_moves(self):
         self.valid_moves = []
 

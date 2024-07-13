@@ -9,12 +9,14 @@ class King(ChessPiece):
         super().__init__(row, column, color)
         self.has_moved = False
 
+    # representing the king as a string
     def __str__(self):
         if self.color == "white":
             return "K"
         elif self.color == "black":
             return "k"
 
+    # we check the squares around the king, if they are empty or with enemy figures, we can move there
     def check_valid_moves(self):
         self.valid_moves = []
 

@@ -19,6 +19,7 @@ class Game:
         self.counter = 0
         self.board_state = {}
 
+    # this is a function to add the current board state to the dictionary, it is used to check for threefold repetitions
     def add_board_state_to_dictionary(self):
         board_str = ""
         if self.white_turn:
@@ -34,6 +35,7 @@ class Game:
             self.board_state[board_str] = 0
         self.board_state[board_str] += 1
 
+    # here we check the dictionary for threefold repetitions
     def check_for_threefold_repetition_draw(self):
         for key, value in self.board_state.items():
             if value == 3:
@@ -68,6 +70,7 @@ class Game:
         else:
             return False
 
+    # this is the function that does the moves on the board and returns a number, corresponding to the situation
     def take_move(self, start_position, new_position):
         successful_move = False
         old_piece = None
@@ -156,7 +159,7 @@ class Game:
                 print("Draw by insufficient material!")
                 return 3
 
-            if self.counter == 100:
+            if self.counter == 50:
                 self.game_over = True
                 print("Draw by 50 move rule!")
                 return 3
@@ -227,7 +230,7 @@ class Game:
                 print("Draw by insufficient material!")
                 return 3
 
-            if self.counter == 100:
+            if self.counter == 50:
                 self.game_over = True
                 print("Draw by 50 move rule!")
                 return 3

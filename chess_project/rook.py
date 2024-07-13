@@ -12,12 +12,15 @@ class Rook(ChessPiece):
         super().__init__(row, column, color)
         self.has_moved = False
 
+    # representing the rook as a string
     def __str__(self):
         if self.color == "white":
             return "R"
         elif self.color == "black":
             return "r"
 
+    # the rook goes in all directions checking if there is an enemy piece, an allied piece or the end of the board and
+    # adds all the valid moves
     def check_valid_moves(self):
         self.valid_moves = []
 

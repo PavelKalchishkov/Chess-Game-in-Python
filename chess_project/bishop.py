@@ -8,12 +8,14 @@ class Bishop(ChessPiece):
                        (1, -1), (2, -2), (3, -3), (4, -4), (5, -5), (6, -6), (7, -7),
                        (-1, 1), (-2, 2), (-3, 3), (-4, 4), (-5, 5), (-6, 6), (-7, 7)]
 
+    # representing the bishop class as a string
     def __str__(self):
         if self.color == "white":
             return "B"
         elif self.color == "black":
             return "b"
 
+    # the bishop checks the same way the rook does, but diagonally
     def check_valid_moves(self):
         self.valid_moves = []
 
