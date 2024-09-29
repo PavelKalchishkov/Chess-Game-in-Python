@@ -284,7 +284,6 @@ def play_menu_frame():
     def calculate_x_y_coordinates(x, y):
         board_width = label_play_board_image.winfo_width()
         square_width = board_width // 8
-        print(square_width)
         current_square = ""
         # calculate x coordinates
         if x < square_width:
