@@ -1,9 +1,12 @@
+import ctypes
 import tkinter
 import customtkinter
 from PIL import Image
 from chess_project.board import c_board
 from chess_project.game import game1
 from chess_project.chess_piece import ChessPiece
+
+ctypes.windll.shcore.SetProcessDpiAwareness(0)
 
 piece_click = ''
 board_click = ''
