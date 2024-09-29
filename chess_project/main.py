@@ -279,41 +279,44 @@ def play_menu_frame():
 
     # function that calculates x,y coordinates
     def calculate_x_y_coordinates(x, y):
+        board_width = label_play_board_image.winfo_width()
+        square_width = board_width // 8
+        print(square_width)
         current_square = ""
         # calculate x coordinates
-        if x < 60:
+        if x < square_width:
             current_square += "a"
-        elif 60 < x < 120:
+        elif square_width < x < square_width * 2:
             current_square += "b"
-        elif 120 < x < 180:
+        elif square_width * 2 < x < square_width * 3:
             current_square += "c"
-        elif 180 < x < 240:
+        elif square_width * 3 < x < square_width * 4:
             current_square += "d"
-        elif 240 < x < 300:
+        elif square_width * 4 < x < square_width * 5:
             current_square += "e"
-        elif 300 < x < 360:
+        elif square_width * 5 < x < square_width * 6:
             current_square += "f"
-        elif 360 < x < 420:
+        elif square_width * 6 < x < square_width * 7:
             current_square += "g"
-        elif 420 < x < 480:
+        elif square_width * 7 < x < square_width * 8:
             current_square += "h"
 
         # calculate y coordinates
-        if y < 60:
+        if y < square_width:
             current_square += "8"
-        elif 60 < y < 120:
+        elif square_width < y < square_width * 2:
             current_square += "7"
-        elif 120 < y < 180:
+        elif square_width * 2 < y < square_width * 3:
             current_square += "6"
-        elif 180 < y < 240:
+        elif square_width * 3 < y < square_width * 4:
             current_square += "5"
-        elif 240 < y < 300:
+        elif square_width * 4 < y < square_width * 5:
             current_square += "4"
-        elif 300 < y < 360:
+        elif square_width * 5 < y < square_width * 6:
             current_square += "3"
-        elif 360 < y < 420:
+        elif square_width * 6 < y < square_width * 7:
             current_square += "2"
-        elif 420 < y < 480:
+        elif square_width * 7 < y < square_width * 8:
             current_square += "1"
 
         return current_square
