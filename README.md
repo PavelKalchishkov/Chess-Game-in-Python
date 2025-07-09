@@ -34,7 +34,7 @@
 
 ## 🖼️ Screenshots
 <p align="center">
-  <img src="screenshots/scr_1.png" width="500" alt="Chess Game UI" />
+  <img src="chess_project/screenshots/scr_1.png" width="500" alt="Chess Game UI" />
 </p>
 <p align="center">
   <img src="screenshots/scr_2.png" width="500" alt="Chess Game UI" />
