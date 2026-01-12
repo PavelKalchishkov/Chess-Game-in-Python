@@ -6,7 +6,7 @@
 
 ---
 
-## 🧩 Features
+## Features
 - Fully functiong chess game with all the rules.
 - Graphical interface with Customtkinter and Tkinter
 - Highlights all the legal moves
@@ -15,7 +15,7 @@
 
 ---
 
-## 🖥️ Libraries & Tools Used
+## Libraries & Tools Used
 - Python 3.11 - Main programming language for the project https://docs.python.org/3.11/
 - Customtkinter - Used for creating most of the interface https://customtkinter.tomschimansky.com/
 - Tkinter - Used for creating a small part of the interface https://docs.python.org/3/library/tkinter.html
@@ -24,7 +24,7 @@
 
 ---
 
-## 🚀 How to run the project
+## How to run the project
 1. Clone the repository in a folder(1)
 2. Make folder(1) sources root
 3. Install the libraries(Customtkinter, Tkinter, Pillow, Ctypes)
@@ -32,7 +32,7 @@
 
 ---
 
-## 🖼️ Screenshots
+## Screenshots
 <p align="center">
   <img src="chess_project/screenshots/scr_1.png" width="300" alt="Screenshot 1" />
   <img src="chess_project/screenshots/scr_2.png" width="300" alt="Screenshot 2" />
